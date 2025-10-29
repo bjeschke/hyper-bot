@@ -1,0 +1,863 @@
+2025-10-29 15:56:26 | INFO     | src.main:__init__ - Trading Bot initialized
+2025-10-29 15:57:18 | INFO     | src.main:__init__ - Trading Bot initialized
+2025-10-29 15:57:18 | INFO     | src.main:__init__ - Trading BTC, ETH, SOL, ARB, AVAX on TESTNET
+2025-10-29 15:57:18 | INFO     | src.main:start - ================================================================================
+2025-10-29 15:57:18 | INFO     | src.main:start - HYPERLIQUID TRADING BOT STARTING
+2025-10-29 15:57:18 | INFO     | src.main:start - ================================================================================
+2025-10-29 15:57:19 | ERROR    | src.hyperliquid.client:_request - API request failed: 404, message='Not Found', url=URL('https://api.hyperliquid-testnet.xyz/info/ticker')
+2025-10-29 15:57:19 | ERROR    | src.hyperliquid.client:health_check - Hyperliquid API health check failed: 404, message='Not Found', url=URL('https://api.hyperliquid-testnet.xyz/info/ticker')
+2025-10-29 15:57:19 | ERROR    | src.main:start - Hyperliquid API health check failed. Exiting.
+2025-10-29 16:00:53 | INFO     | src.main:__init__ - Trading Bot initialized
+2025-10-29 16:00:53 | INFO     | src.main:__init__ - Trading BTC, ETH, SOL, ARB, AVAX on TESTNET
+2025-10-29 16:00:53 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:00:53 | INFO     | src.main:start - HYPERLIQUID TRADING BOT STARTING
+2025-10-29 16:00:53 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:00:54 | INFO     | src.hyperliquid.client:health_check - Hyperliquid API health check passed
+2025-10-29 16:00:54 | INFO     | src.main:start - Initial Portfolio: $0.00
+2025-10-29 16:00:54 | INFO     | src.main:start - Available Balance: $0.00
+2025-10-29 16:00:54 | INFO     | src.main:start - Trading Assets: BTC, ETH, SOL, ARB, AVAX
+2025-10-29 16:00:54 | INFO     | src.main:start - Trading loop interval: 300s
+2025-10-29 16:00:54 | INFO     | src.main:start - Bot is running. Press Ctrl+C to stop.
+2025-10-29 16:00:54 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:00:54 | INFO     | src.main:trading_loop - --- Trading Loop: 2025-10-29 16:00:54 ---
+2025-10-29 16:00:54 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing BTC <<<
+2025-10-29 16:00:54 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for BTC...
+2025-10-29 16:00:55 | ERROR    | src.hyperliquid.client:_request - API request failed: 422, message='Unprocessable Entity', url=URL('https://api.hyperliquid-testnet.xyz/info')
+2025-10-29 16:00:57 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for BTC...
+2025-10-29 16:00:59 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for BTC...
+2025-10-29 16:00:59 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for BTC
+2025-10-29 16:01:00 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Error getting trading decision: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-10-29 16:01:00 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for BTC, skipping
+2025-10-29 16:01:00 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing ETH <<<
+2025-10-29 16:01:00 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for ETH...
+2025-10-29 16:01:02 | ERROR    | src.hyperliquid.client:_request - API request failed: 422, message='Unprocessable Entity', url=URL('https://api.hyperliquid-testnet.xyz/info')
+2025-10-29 16:01:03 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for ETH...
+2025-10-29 16:01:05 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for ETH...
+2025-10-29 16:01:05 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for ETH
+2025-10-29 16:01:06 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Error getting trading decision: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-10-29 16:01:06 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for ETH, skipping
+2025-10-29 16:01:06 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing SOL <<<
+2025-10-29 16:01:06 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for SOL...
+2025-10-29 16:01:07 | ERROR    | src.hyperliquid.client:_request - API request failed: 422, message='Unprocessable Entity', url=URL('https://api.hyperliquid-testnet.xyz/info')
+2025-10-29 16:01:08 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for SOL...
+2025-10-29 16:01:10 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for SOL...
+2025-10-29 16:01:10 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for SOL
+2025-10-29 16:01:11 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Error getting trading decision: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-10-29 16:01:11 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for SOL, skipping
+2025-10-29 16:01:11 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing ARB <<<
+2025-10-29 16:01:11 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for ARB...
+2025-10-29 16:01:11 | ERROR    | src.hyperliquid.client:_request - API request failed: 422, message='Unprocessable Entity', url=URL('https://api.hyperliquid-testnet.xyz/info')
+2025-10-29 16:01:13 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for ARB...
+2025-10-29 16:01:15 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for ARB...
+2025-10-29 16:01:15 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for ARB
+2025-10-29 16:01:16 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Error getting trading decision: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-10-29 16:01:16 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for ARB, skipping
+2025-10-29 16:01:16 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing AVAX <<<
+2025-10-29 16:01:16 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for AVAX...
+2025-10-29 16:01:17 | ERROR    | src.hyperliquid.client:_request - API request failed: 422, message='Unprocessable Entity', url=URL('https://api.hyperliquid-testnet.xyz/info')
+2025-10-29 16:01:19 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for AVAX...
+2025-10-29 16:01:20 | WARNING  | src.analysis.indicators:calculate_all_indicators - Not enough candle data for 4h: 48
+2025-10-29 16:01:20 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for AVAX...
+2025-10-29 16:01:20 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for AVAX
+2025-10-29 16:01:21 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Error getting trading decision: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-10-29 16:01:21 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for AVAX, skipping
+2025-10-29 16:01:21 | INFO     | src.main:trading_loop - --- Trading Loop Complete ---
+
+2025-10-29 16:06:21 | INFO     | src.main:trading_loop - --- Trading Loop: 2025-10-29 16:06:21 ---
+2025-10-29 16:06:22 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing BTC <<<
+2025-10-29 16:06:22 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for BTC...
+2025-10-29 16:06:23 | ERROR    | src.hyperliquid.client:_request - API request failed: 422, message='Unprocessable Entity', url=URL('https://api.hyperliquid-testnet.xyz/info')
+2025-10-29 16:06:24 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for BTC...
+2025-10-29 16:06:25 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for BTC...
+2025-10-29 16:06:25 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for BTC
+2025-10-29 16:06:28 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Error getting trading decision: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-10-29 16:06:28 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for BTC, skipping
+2025-10-29 16:06:28 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing ETH <<<
+2025-10-29 16:06:28 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for ETH...
+2025-10-29 16:06:28 | ERROR    | src.hyperliquid.client:_request - API request failed: 422, message='Unprocessable Entity', url=URL('https://api.hyperliquid-testnet.xyz/info')
+2025-10-29 16:06:30 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for ETH...
+2025-10-29 16:06:32 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for ETH...
+2025-10-29 16:06:32 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for ETH
+2025-10-29 16:06:32 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Error getting trading decision: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-10-29 16:06:32 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for ETH, skipping
+2025-10-29 16:06:32 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing SOL <<<
+2025-10-29 16:06:32 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for SOL...
+2025-10-29 16:06:33 | ERROR    | src.hyperliquid.client:_request - API request failed: 422, message='Unprocessable Entity', url=URL('https://api.hyperliquid-testnet.xyz/info')
+2025-10-29 16:06:35 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for SOL...
+2025-10-29 16:06:37 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for SOL...
+2025-10-29 16:06:37 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for SOL
+2025-10-29 16:06:37 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Error getting trading decision: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-10-29 16:06:37 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for SOL, skipping
+2025-10-29 16:06:37 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing ARB <<<
+2025-10-29 16:06:37 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for ARB...
+2025-10-29 16:06:38 | ERROR    | src.hyperliquid.client:_request - API request failed: 422, message='Unprocessable Entity', url=URL('https://api.hyperliquid-testnet.xyz/info')
+2025-10-29 16:06:40 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for ARB...
+2025-10-29 16:06:41 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for ARB...
+2025-10-29 16:06:41 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for ARB
+2025-10-29 16:06:42 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Error getting trading decision: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-10-29 16:06:42 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for ARB, skipping
+2025-10-29 16:06:42 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing AVAX <<<
+2025-10-29 16:06:42 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for AVAX...
+2025-10-29 16:06:43 | ERROR    | src.hyperliquid.client:_request - API request failed: 422, message='Unprocessable Entity', url=URL('https://api.hyperliquid-testnet.xyz/info')
+2025-10-29 16:06:44 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for AVAX...
+2025-10-29 16:06:46 | WARNING  | src.analysis.indicators:calculate_all_indicators - Not enough candle data for 4h: 48
+2025-10-29 16:06:46 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for AVAX...
+2025-10-29 16:06:46 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for AVAX
+2025-10-29 16:06:47 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Error getting trading decision: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-10-29 16:06:47 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for AVAX, skipping
+2025-10-29 16:06:47 | INFO     | src.main:trading_loop - --- Trading Loop Complete ---
+
+2025-10-29 16:11:06 | INFO     | src.main:__init__ - Trading Bot initialized
+2025-10-29 16:11:06 | INFO     | src.main:__init__ - Trading BTC, ETH, SOL, ARB, AVAX on TESTNET
+2025-10-29 16:11:06 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:11:06 | INFO     | src.main:start - HYPERLIQUID TRADING BOT STARTING
+2025-10-29 16:11:06 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:11:07 | INFO     | src.hyperliquid.client:health_check - Hyperliquid API health check passed
+2025-10-29 16:11:07 | INFO     | src.main:start - Initial Portfolio: $0.00
+2025-10-29 16:11:07 | INFO     | src.main:start - Available Balance: $0.00
+2025-10-29 16:11:07 | INFO     | src.main:start - Trading Assets: BTC, ETH, SOL, ARB, AVAX
+2025-10-29 16:11:07 | INFO     | src.main:start - Trading loop interval: 300s
+2025-10-29 16:11:07 | INFO     | src.main:start - Bot is running. Press Ctrl+C to stop.
+2025-10-29 16:11:07 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:11:07 | INFO     | src.main:trading_loop - --- Trading Loop: 2025-10-29 16:11:07 ---
+2025-10-29 16:11:07 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing BTC <<<
+2025-10-29 16:11:07 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for BTC...
+2025-10-29 16:11:09 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for BTC...
+2025-10-29 16:11:11 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for BTC...
+2025-10-29 16:11:11 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for BTC
+2025-10-29 16:12:07 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.1)
+2025-10-29 16:12:07 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Error getting trading decision: 'HOLD' is not a valid OrderType
+2025-10-29 16:12:07 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for BTC, skipping
+2025-10-29 16:12:07 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing ETH <<<
+2025-10-29 16:12:07 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for ETH...
+2025-10-29 16:12:10 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for ETH...
+2025-10-29 16:12:12 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for ETH...
+2025-10-29 16:12:12 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for ETH
+2025-10-29 16:13:08 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.1)
+2025-10-29 16:13:08 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Error getting trading decision: 'HOLD' is not a valid OrderType
+2025-10-29 16:13:08 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for ETH, skipping
+2025-10-29 16:13:08 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing SOL <<<
+2025-10-29 16:13:08 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for SOL...
+2025-10-29 16:13:10 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for SOL...
+2025-10-29 16:13:11 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for SOL...
+2025-10-29 16:13:11 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for SOL
+2025-10-29 16:14:09 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.1)
+2025-10-29 16:14:09 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Error getting trading decision: 'NONE' is not a valid OrderType
+2025-10-29 16:14:09 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for SOL, skipping
+2025-10-29 16:14:09 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing ARB <<<
+2025-10-29 16:14:09 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for ARB...
+2025-10-29 16:14:11 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for ARB...
+2025-10-29 16:14:13 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for ARB...
+2025-10-29 16:14:13 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for ARB
+2025-10-29 16:15:18 | INFO     | src.main:__init__ - Trading Bot initialized
+2025-10-29 16:15:18 | INFO     | src.main:__init__ - Trading BTC, ETH, SOL, ARB, AVAX on TESTNET
+2025-10-29 16:15:18 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:15:18 | INFO     | src.main:start - HYPERLIQUID TRADING BOT STARTING
+2025-10-29 16:15:18 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:15:18 | INFO     | src.hyperliquid.client:health_check - Hyperliquid API health check passed
+2025-10-29 16:15:19 | INFO     | src.main:start - Initial Portfolio: $0.00
+2025-10-29 16:15:19 | INFO     | src.main:start - Available Balance: $0.00
+2025-10-29 16:15:19 | INFO     | src.main:start - Trading Assets: BTC, ETH, SOL, ARB, AVAX
+2025-10-29 16:15:19 | INFO     | src.main:start - Trading loop interval: 300s
+2025-10-29 16:15:19 | INFO     | src.main:start - Bot is running. Press Ctrl+C to stop.
+2025-10-29 16:15:19 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:15:19 | INFO     | src.main:trading_loop - --- Trading Loop: 2025-10-29 16:15:19 ---
+2025-10-29 16:15:19 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing BTC <<<
+2025-10-29 16:15:19 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for BTC...
+2025-10-29 16:15:22 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for BTC...
+2025-10-29 16:15:24 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for BTC...
+2025-10-29 16:15:24 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for BTC
+2025-10-29 16:16:27 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.1)
+2025-10-29 16:16:27 | INFO     | src.main:analyze_and_trade_asset - AI Decision for BTC: HOLD
+2025-10-29 16:16:27 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.10
+2025-10-29 16:16:27 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 1/10
+2025-10-29 16:16:27 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 16:16:27 | INFO     | src.main:analyze_and_trade_asset - Reasoning: NO TRADABLE SETUP DETECTED due to multiple critical data quality issues and insufficient confluence.
+
+DATA QUALITY CONCERNS: The provided data shows zero volume across most timeframes ($0 1h volume, $...
+2025-10-29 16:16:27 | WARNING  | src.main:analyze_and_trade_asset - BTC: Risk check failed: Decision is HOLD
+2025-10-29 16:16:27 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing ETH <<<
+2025-10-29 16:16:27 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for ETH...
+2025-10-29 16:16:29 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for ETH...
+2025-10-29 16:16:31 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for ETH...
+2025-10-29 16:16:31 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for ETH
+2025-10-29 16:17:28 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.1)
+2025-10-29 16:17:28 | INFO     | src.main:analyze_and_trade_asset - AI Decision for ETH: HOLD
+2025-10-29 16:17:28 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.10
+2025-10-29 16:17:28 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 0/10
+2025-10-29 16:17:28 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 16:17:28 | INFO     | src.main:analyze_and_trade_asset - Reasoning: NO TRADABLE SETUP DETECTED due to critical data quality issues and lack of market participation.
+
+DATA QUALITY CONCERNS: Multiple data points show zero or near-zero values indicating potential data fe...
+2025-10-29 16:17:28 | WARNING  | src.main:analyze_and_trade_asset - ETH: Risk check failed: Decision is HOLD
+2025-10-29 16:17:28 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing SOL <<<
+2025-10-29 16:17:28 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for SOL...
+2025-10-29 16:17:31 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for SOL...
+2025-10-29 16:17:33 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for SOL...
+2025-10-29 16:17:33 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for SOL
+2025-10-29 16:18:30 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.1)
+2025-10-29 16:18:30 | INFO     | src.main:analyze_and_trade_asset - AI Decision for SOL: HOLD
+2025-10-29 16:18:30 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.10
+2025-10-29 16:18:30 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 1/10
+2025-10-29 16:18:30 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 16:18:30 | INFO     | src.main:analyze_and_trade_asset - Reasoning: HOLD decision due to insufficient confluence and poor data quality. The market shows mixed signals: ADX 44.0 indicates a strong trend, but -DI > +DI suggests bearish momentum, while EMAs are not align...
+2025-10-29 16:18:30 | WARNING  | src.main:analyze_and_trade_asset - SOL: Risk check failed: Decision is HOLD
+2025-10-29 16:18:30 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing ARB <<<
+2025-10-29 16:18:30 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for ARB...
+2025-10-29 16:18:33 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for ARB...
+2025-10-29 16:18:35 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for ARB...
+2025-10-29 16:18:35 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for ARB
+2025-10-29 16:19:29 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.1)
+2025-10-29 16:19:29 | INFO     | src.main:analyze_and_trade_asset - AI Decision for ARB: HOLD
+2025-10-29 16:19:29 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.10
+2025-10-29 16:19:29 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 1/10
+2025-10-29 16:19:29 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 16:19:29 | INFO     | src.main:analyze_and_trade_asset - Reasoning: HOLD decision due to insufficient data quality and lack of trading setup confluence. The market regime is RANGING with weak trend strength (ADX 10.5), and EMAs clustered at 0.32 confirm consolidation....
+2025-10-29 16:19:29 | WARNING  | src.main:analyze_and_trade_asset - ARB: Risk check failed: Decision is HOLD
+2025-10-29 16:19:29 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing AVAX <<<
+2025-10-29 16:19:29 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for AVAX...
+2025-10-29 16:19:31 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for AVAX...
+2025-10-29 16:19:33 | WARNING  | src.analysis.indicators:calculate_all_indicators - Not enough candle data for 4h: 48
+2025-10-29 16:19:33 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for AVAX...
+2025-10-29 16:19:33 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for AVAX
+2025-10-29 16:20:25 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.1)
+2025-10-29 16:20:25 | INFO     | src.main:analyze_and_trade_asset - AI Decision for AVAX: HOLD
+2025-10-29 16:20:25 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.10
+2025-10-29 16:20:25 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 1/10
+2025-10-29 16:20:25 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 16:20:25 | INFO     | src.main:analyze_and_trade_asset - Reasoning: HOLD decision due to insufficient confluence and poor data quality. The market shows conflicting signals: bearish EMA alignment (20 < 50 < 200) and Supertrend, but ADX at 25 indicates only weak trendi...
+2025-10-29 16:20:25 | WARNING  | src.main:analyze_and_trade_asset - AVAX: Risk check failed: Decision is HOLD
+2025-10-29 16:20:25 | INFO     | src.main:trading_loop - --- Trading Loop Complete ---
+
+2025-10-29 16:23:38 | INFO     | src.main:__init__ - Trading Bot initialized
+2025-10-29 16:23:38 | INFO     | src.main:__init__ - Trading BTC, ETH, SOL, ARB, AVAX on TESTNET
+2025-10-29 16:23:38 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:23:38 | INFO     | src.main:start - HYPERLIQUID TRADING BOT STARTING
+2025-10-29 16:23:38 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:23:39 | INFO     | src.hyperliquid.client:health_check - Hyperliquid API health check passed
+2025-10-29 16:23:39 | INFO     | src.main:start - Initial Portfolio: $999.00
+2025-10-29 16:23:39 | INFO     | src.main:start - Available Balance: $999.00
+2025-10-29 16:23:39 | INFO     | src.main:start - Trading Assets: BTC, ETH, SOL, ARB, AVAX
+2025-10-29 16:23:39 | INFO     | src.main:start - Trading loop interval: 300s
+2025-10-29 16:23:39 | INFO     | src.main:start - Bot is running. Press Ctrl+C to stop.
+2025-10-29 16:23:39 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:23:39 | INFO     | src.main:trading_loop - --- Trading Loop: 2025-10-29 16:23:39 ---
+2025-10-29 16:23:40 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing BTC <<<
+2025-10-29 16:23:40 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for BTC...
+2025-10-29 16:23:42 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for BTC...
+2025-10-29 16:23:44 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for BTC...
+2025-10-29 16:23:44 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for BTC
+2025-10-29 16:25:44 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.3)
+2025-10-29 16:25:44 | INFO     | src.main:analyze_and_trade_asset - AI Decision for BTC: HOLD
+2025-10-29 16:25:44 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.30
+2025-10-29 16:25:44 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 3/10
+2025-10-29 16:25:44 | INFO     | src.main:analyze_and_trade_asset - Market Regime: TRENDING_BEAR
+2025-10-29 16:25:44 | INFO     | src.main:analyze_and_trade_asset - Reasoning: HOLD decision due to insufficient confluence and high risks. The market is in a strong bearish regime with ADX 64.8, price below all EMAs and VWAP, and bearish Supertrend. However, momentum is weak bu...
+2025-10-29 16:25:44 | WARNING  | src.main:analyze_and_trade_asset - BTC: Risk check failed: Decision is HOLD
+2025-10-29 16:25:44 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing ETH <<<
+2025-10-29 16:25:44 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for ETH...
+2025-10-29 16:25:46 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for ETH...
+2025-10-29 16:25:48 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for ETH...
+2025-10-29 16:25:48 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for ETH
+2025-10-29 16:27:20 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.25)
+2025-10-29 16:27:20 | INFO     | src.main:analyze_and_trade_asset - AI Decision for ETH: HOLD
+2025-10-29 16:27:20 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.25
+2025-10-29 16:27:20 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 2/10
+2025-10-29 16:27:20 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 16:27:20 | INFO     | src.main:analyze_and_trade_asset - Reasoning: HOLD decision due to insufficient confluence and high-risk market conditions. The market shows no clear trend with ADX at 4.9, indicating ranging behavior. Price is stagnant across all timeframes (0.0...
+2025-10-29 16:27:20 | WARNING  | src.main:analyze_and_trade_asset - ETH: Risk check failed: Decision is HOLD
+2025-10-29 16:27:20 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing SOL <<<
+2025-10-29 16:27:20 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for SOL...
+2025-10-29 16:27:22 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for SOL...
+2025-10-29 16:27:23 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for SOL...
+2025-10-29 16:27:23 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for SOL
+2025-10-29 16:29:19 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.3)
+2025-10-29 16:29:19 | INFO     | src.main:analyze_and_trade_asset - AI Decision for SOL: HOLD
+2025-10-29 16:29:19 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.30
+2025-10-29 16:29:19 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 4/10
+2025-10-29 16:29:19 | INFO     | src.main:analyze_and_trade_asset - Market Regime: TRENDING_BEAR
+2025-10-29 16:29:19 | INFO     | src.main:analyze_and_trade_asset - Reasoning: Analysis reveals insufficient confluence for a high-probability trade. The market is in a TRENDING_BEAR regime with ADX 44 and -DI dominating, but key data gaps and weak signals preclude a confident s...
+2025-10-29 16:29:19 | WARNING  | src.main:analyze_and_trade_asset - SOL: Risk check failed: Decision is HOLD
+2025-10-29 16:29:19 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing ARB <<<
+2025-10-29 16:29:19 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for ARB...
+2025-10-29 16:29:22 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for ARB...
+2025-10-29 16:29:23 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for ARB...
+2025-10-29 16:29:23 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for ARB
+2025-10-29 16:32:45 | INFO     | src.main:__init__ - Trading Bot initialized
+2025-10-29 16:32:45 | INFO     | src.main:__init__ - Trading BTC, ETH, SOL, ARB, AVAX on TESTNET
+2025-10-29 16:32:45 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:32:45 | INFO     | src.main:start - HYPERLIQUID TRADING BOT STARTING
+2025-10-29 16:32:45 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:32:45 | INFO     | src.hyperliquid.client:health_check - Hyperliquid API health check passed
+2025-10-29 16:32:45 | INFO     | src.main:start - Initial Portfolio: $999.00
+2025-10-29 16:32:45 | INFO     | src.main:start - Available Balance: $999.00
+2025-10-29 16:32:45 | INFO     | src.main:start - Trading Assets: BTC, ETH, SOL, ARB, AVAX
+2025-10-29 16:32:45 | INFO     | src.main:start - Trading loop interval: 300s
+2025-10-29 16:32:45 | INFO     | src.main:start - Bot is running. Press Ctrl+C to stop.
+2025-10-29 16:32:45 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:32:45 | INFO     | src.main:trading_loop - --- Trading Loop: 2025-10-29 16:32:45 ---
+2025-10-29 16:32:46 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing BTC <<<
+2025-10-29 16:32:46 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for BTC...
+2025-10-29 16:32:47 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for BTC...
+2025-10-29 16:32:49 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for BTC...
+2025-10-29 16:32:49 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for BTC
+2025-10-29 16:34:39 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.2)
+2025-10-29 16:34:39 | INFO     | src.main:analyze_and_trade_asset - AI Decision for BTC: HOLD
+2025-10-29 16:34:39 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.20
+2025-10-29 16:34:39 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 3/10
+2025-10-29 16:34:39 | INFO     | src.main:analyze_and_trade_asset - Market Regime: TRENDING_BEAR
+2025-10-29 16:34:39 | INFO     | src.main:analyze_and_trade_asset - Reasoning: HOLD decision due to insufficient confluence and high risks. TREND: Bearish dominance with price below all key EMAs, strong ADX (65.4), and -DI exceeding +DI, indicating sustained selling pressure. Ho...
+2025-10-29 16:34:39 | WARNING  | src.main:analyze_and_trade_asset - BTC: Risk check failed: Decision is HOLD
+2025-10-29 16:34:39 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing ETH <<<
+2025-10-29 16:34:39 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for ETH...
+2025-10-29 16:34:42 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for ETH...
+2025-10-29 16:34:44 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for ETH...
+2025-10-29 16:34:44 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for ETH
+2025-10-29 16:36:13 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.15)
+2025-10-29 16:36:13 | INFO     | src.main:analyze_and_trade_asset - AI Decision for ETH: HOLD
+2025-10-29 16:36:13 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.15
+2025-10-29 16:36:13 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 2/10
+2025-10-29 16:36:13 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 16:36:13 | INFO     | src.main:analyze_and_trade_asset - Reasoning: Insufficient confluence for any trading decision. The market is in a ranging regime with low volatility and no clear trend, as indicated by ADX of 4.9 and flat price action across timeframes. Volume i...
+2025-10-29 16:36:13 | WARNING  | src.main:analyze_and_trade_asset - ETH: Risk check failed: Decision is HOLD
+2025-10-29 16:36:13 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing SOL <<<
+2025-10-29 16:36:13 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for SOL...
+2025-10-29 16:36:15 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for SOL...
+2025-10-29 16:36:17 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for SOL...
+2025-10-29 16:36:17 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for SOL
+2025-10-29 16:38:09 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.3)
+2025-10-29 16:38:09 | INFO     | src.main:analyze_and_trade_asset - AI Decision for SOL: HOLD
+2025-10-29 16:38:09 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.30
+2025-10-29 16:38:09 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 4/10
+2025-10-29 16:38:09 | INFO     | src.main:analyze_and_trade_asset - Market Regime: TRENDING_BEAR
+2025-10-29 16:38:09 | INFO     | src.main:analyze_and_trade_asset - Reasoning: Insufficient confluence for a trade decision. The market is in a TRENDING_BEAR regime with strong ADX (44.0) and bearish Supertrend, but key issues include: 1) Low volume (0.36x average) and OBV downt...
+2025-10-29 16:38:09 | WARNING  | src.main:analyze_and_trade_asset - SOL: Risk check failed: Decision is HOLD
+2025-10-29 16:38:09 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing ARB <<<
+2025-10-29 16:38:09 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for ARB...
+2025-10-29 16:38:11 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for ARB...
+2025-10-29 16:38:13 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for ARB...
+2025-10-29 16:38:13 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for ARB
+2025-10-29 16:40:26 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Failed to parse DeepSeek response: Unterminated string starting at: line 15 column 25 (char 473)
+2025-10-29 16:40:26 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for ARB, skipping
+2025-10-29 16:40:26 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing AVAX <<<
+2025-10-29 16:40:26 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for AVAX...
+2025-10-29 16:40:29 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for AVAX...
+2025-10-29 16:40:31 | WARNING  | src.analysis.indicators:calculate_all_indicators - Not enough candle data for 4h: 48
+2025-10-29 16:40:31 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for AVAX...
+2025-10-29 16:40:31 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for AVAX
+2025-10-29 16:40:49 | INFO     | src.main:__init__ - Trading Bot initialized
+2025-10-29 16:40:49 | INFO     | src.main:__init__ - Trading BTC, ETH, XRP, SOL, BNB on TESTNET
+2025-10-29 16:40:49 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:40:49 | INFO     | src.main:start - HYPERLIQUID TRADING BOT STARTING
+2025-10-29 16:40:49 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:40:50 | INFO     | src.hyperliquid.client:health_check - Hyperliquid API health check passed
+2025-10-29 16:40:50 | INFO     | src.main:start - Initial Portfolio: $999.00
+2025-10-29 16:40:50 | INFO     | src.main:start - Available Balance: $999.00
+2025-10-29 16:40:50 | INFO     | src.main:start - Trading Assets: BTC, ETH, XRP, SOL, BNB
+2025-10-29 16:40:50 | INFO     | src.main:start - Trading loop interval: 300s
+2025-10-29 16:40:50 | INFO     | src.main:start - Bot is running. Press Ctrl+C to stop.
+2025-10-29 16:40:50 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:40:50 | INFO     | src.main:trading_loop - --- Trading Loop: 2025-10-29 16:40:50 ---
+2025-10-29 16:40:51 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing BTC <<<
+2025-10-29 16:40:51 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for BTC...
+2025-10-29 16:40:54 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for BTC...
+2025-10-29 16:40:56 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for BTC...
+2025-10-29 16:40:56 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for BTC
+2025-10-29 16:42:44 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.25)
+2025-10-29 16:42:44 | INFO     | src.main:analyze_and_trade_asset - AI Decision for BTC: HOLD
+2025-10-29 16:42:44 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.25
+2025-10-29 16:42:44 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 2/10
+2025-10-29 16:42:44 | INFO     | src.main:analyze_and_trade_asset - Market Regime: TRENDING_BEAR
+2025-10-29 16:42:44 | INFO     | src.main:analyze_and_trade_asset - Reasoning: HOLD decision due to insufficient confluence and poor data quality. Market is in a strong bearish regime (ADX 65.4, -DI dominant, EMAs aligned bearishly), but volume is critically low across all timef...
+2025-10-29 16:42:44 | WARNING  | src.main:analyze_and_trade_asset - BTC: Risk check failed: Decision is HOLD
+2025-10-29 16:42:44 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing ETH <<<
+2025-10-29 16:42:44 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for ETH...
+2025-10-29 16:42:47 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for ETH...
+2025-10-29 16:42:49 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for ETH...
+2025-10-29 16:42:49 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for ETH
+2025-10-29 16:44:44 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.25)
+2025-10-29 16:44:44 | INFO     | src.main:analyze_and_trade_asset - AI Decision for ETH: HOLD
+2025-10-29 16:44:44 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.25
+2025-10-29 16:44:44 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 2/10
+2025-10-29 16:44:44 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 16:44:44 | INFO     | src.main:analyze_and_trade_asset - Reasoning: NO TRADABLE SETUP DETECTED - HOLD DECISION WARRANTED DUE TO MULTIPLE CRITICAL ISSUES:
+
+MARKET REGIME: Current regime is clearly RANGING with ADX at 4.9 (well below 20 threshold), indicating no trendin...
+2025-10-29 16:44:44 | WARNING  | src.main:analyze_and_trade_asset - ETH: Risk check failed: Decision is HOLD
+2025-10-29 16:44:44 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing XRP <<<
+2025-10-29 16:44:44 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for XRP...
+2025-10-29 16:44:45 | ERROR    | src.main:analyze_and_trade_asset - Error in trading loop: Asset XRP not found in market data
+Traceback (most recent call last):
+
+  File "/Users/benjaminjeschke/Documents/apps/hyper-bot/hyper-bot/run_bot.py", line 12, in <module>
+    asyncio.run(main())
+
+  File "/Users/benjaminjeschke/miniconda3/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+  File "/Users/benjaminjeschke/miniconda3/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/benjaminjeschke/miniconda3/lib/python3.13/asyncio/base_events.py", line 712, in run_until_complete
+    self.run_forever()
+  File "/Users/benjaminjeschke/miniconda3/lib/python3.13/asyncio/base_events.py", line 683, in run_forever
+    self._run_once()
+  File "/Users/benjaminjeschke/miniconda3/lib/python3.13/asyncio/base_events.py", line 2042, in _run_once
+    handle._run()
+  File "/Users/benjaminjeschke/miniconda3/lib/python3.13/asyncio/events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+
+  File "/Users/benjaminjeschke/Documents/apps/hyper-bot/hyper-bot/src/main.py", line 415, in main
+    await bot.start()
+
+  File "/Users/benjaminjeschke/Documents/apps/hyper-bot/hyper-bot/src/main.py", line 120, in start
+    await self.trading_loop()
+
+  File "/Users/benjaminjeschke/Documents/apps/hyper-bot/hyper-bot/src/main.py", line 150, in trading_loop
+    await self.analyze_and_trade_asset(asset, portfolio)
+
+> File "/Users/benjaminjeschke/Documents/apps/hyper-bot/hyper-bot/src/main.py", line 164, in analyze_and_trade_asset
+    market_data = await self.hl_client.get_multi_timeframe_data(asset)
+
+  File "/Users/benjaminjeschke/Documents/apps/hyper-bot/hyper-bot/src/hyperliquid/client.py", line 187, in get_multi_timeframe_data
+    ticker = await self.get_ticker(asset)
+
+  File "/Users/benjaminjeschke/Documents/apps/hyper-bot/hyper-bot/src/hyperliquid/client.py", line 150, in get_ticker
+    raise ValueError(f"Asset {asset} not found in market data")
+
+ValueError: Asset XRP not found in market data
+2025-10-29 16:44:45 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing SOL <<<
+2025-10-29 16:44:45 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for SOL...
+2025-10-29 16:44:47 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for SOL...
+2025-10-29 16:44:49 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for SOL...
+2025-10-29 16:44:49 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for SOL
+2025-10-29 16:47:09 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Failed to parse DeepSeek response: Expecting value: line 1 column 1 (char 0)
+2025-10-29 16:47:09 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for SOL, skipping
+2025-10-29 16:47:09 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing BNB <<<
+2025-10-29 16:47:09 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for BNB...
+2025-10-29 16:47:11 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for BNB...
+2025-10-29 16:47:13 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for BNB...
+2025-10-29 16:47:13 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for BNB
+2025-10-29 16:49:28 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.25)
+2025-10-29 16:49:28 | INFO     | src.main:analyze_and_trade_asset - AI Decision for BNB: HOLD
+2025-10-29 16:49:28 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.25
+2025-10-29 16:49:28 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 3/10
+2025-10-29 16:49:28 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 16:49:28 | INFO     | src.main:analyze_and_trade_asset - Reasoning: After thorough analysis using the Deep Reasoning Framework, I conclude that HOLD is the optimal decision due to insufficient confluence and poor market conditions.
+
+In Phase 1 (Chart Analysis & Scenar...
+2025-10-29 16:49:28 | WARNING  | src.main:analyze_and_trade_asset - BNB: Risk check failed: Decision is HOLD
+2025-10-29 16:49:28 | INFO     | src.main:trading_loop - --- Trading Loop Complete ---
+
+2025-10-29 16:52:14 | INFO     | src.main:__init__ - Trading Bot initialized
+2025-10-29 16:52:14 | INFO     | src.main:__init__ - Trading BTC, ETH, DOGE, SOL, BNB on TESTNET
+2025-10-29 16:52:14 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:52:14 | INFO     | src.main:start - HYPERLIQUID TRADING BOT STARTING
+2025-10-29 16:52:14 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:52:15 | INFO     | src.hyperliquid.client:health_check - Hyperliquid API health check passed
+2025-10-29 16:52:15 | INFO     | src.main:start - Initial Portfolio: $999.00
+2025-10-29 16:52:15 | INFO     | src.main:start - Available Balance: $999.00
+2025-10-29 16:52:15 | INFO     | src.main:start - Trading Assets: BTC, ETH, DOGE, SOL, BNB
+2025-10-29 16:52:15 | INFO     | src.main:start - Trading loop interval: 300s
+2025-10-29 16:52:15 | INFO     | src.main:start - Bot is running. Press Ctrl+C to stop.
+2025-10-29 16:52:15 | INFO     | src.main:start - ================================================================================
+2025-10-29 16:52:15 | INFO     | src.main:trading_loop - --- Trading Loop: 2025-10-29 16:52:15 ---
+2025-10-29 16:52:16 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing BTC <<<
+2025-10-29 16:52:16 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for BTC...
+2025-10-29 16:52:18 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for BTC...
+2025-10-29 16:52:20 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for BTC...
+2025-10-29 16:52:20 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for BTC
+2025-10-29 16:54:11 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.3)
+2025-10-29 16:54:11 | INFO     | src.main:analyze_and_trade_asset - AI Decision for BTC: HOLD
+2025-10-29 16:54:11 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.30
+2025-10-29 16:54:11 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 2/10
+2025-10-29 16:54:11 | INFO     | src.main:analyze_and_trade_asset - Market Regime: TRENDING_BEAR
+2025-10-29 16:54:11 | INFO     | src.main:analyze_and_trade_asset - Reasoning: HOLD decision due to insufficient confluence and high uncertainty. Market regime is TRENDING_BEAR with strong ADX (65.4) and bearish DI crossover (-DI > +DI), but low volume and missing data undermine...
+2025-10-29 16:54:11 | WARNING  | src.main:analyze_and_trade_asset - BTC: Risk check failed: Decision is HOLD
+2025-10-29 16:54:11 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing ETH <<<
+2025-10-29 16:54:11 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for ETH...
+2025-10-29 16:54:14 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for ETH...
+2025-10-29 16:54:16 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for ETH...
+2025-10-29 16:54:16 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for ETH
+2025-10-29 16:55:58 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.25)
+2025-10-29 16:55:58 | INFO     | src.main:analyze_and_trade_asset - AI Decision for ETH: HOLD
+2025-10-29 16:55:58 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.25
+2025-10-29 16:55:58 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 2/10
+2025-10-29 16:55:58 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 16:55:58 | INFO     | src.main:analyze_and_trade_asset - Reasoning: HOLD decision due to insufficient confluence and poor data quality. Market is in a ranging regime with ADX 4.9 showing no trend strength. Volume is critically low (near zero across timeframes), indica...
+2025-10-29 16:55:58 | WARNING  | src.main:analyze_and_trade_asset - ETH: Risk check failed: Decision is HOLD
+2025-10-29 16:55:58 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing DOGE <<<
+2025-10-29 16:55:58 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for DOGE...
+2025-10-29 16:56:01 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for DOGE...
+2025-10-29 16:56:03 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for DOGE...
+2025-10-29 16:56:03 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for DOGE
+2025-10-29 16:58:17 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Failed to parse DeepSeek response: Expecting value: line 1 column 1 (char 0)
+2025-10-29 16:58:17 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for DOGE, skipping
+2025-10-29 16:58:17 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing SOL <<<
+2025-10-29 16:58:17 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for SOL...
+2025-10-29 16:58:20 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for SOL...
+2025-10-29 16:58:22 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for SOL...
+2025-10-29 16:58:22 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for SOL
+2025-10-29 17:00:50 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Failed to parse DeepSeek response: Expecting value: line 1 column 1 (char 0)
+2025-10-29 17:00:50 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for SOL, skipping
+2025-10-29 17:00:50 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing BNB <<<
+2025-10-29 17:00:50 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for BNB...
+2025-10-29 17:00:52 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for BNB...
+2025-10-29 17:00:54 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for BNB...
+2025-10-29 17:00:54 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for BNB
+2025-10-29 17:02:27 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.25)
+2025-10-29 17:02:27 | INFO     | src.main:analyze_and_trade_asset - AI Decision for BNB: HOLD
+2025-10-29 17:02:27 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.25
+2025-10-29 17:02:27 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 2/10
+2025-10-29 17:02:27 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 17:02:27 | INFO     | src.main:analyze_and_trade_asset - Reasoning: HOLD decision due to insufficient confluence and poor market conditions for trading. The market is in a RANGING regime with low volatility (ATR 0.90%) and weak trend strength (ADX 16.0). Price action ...
+2025-10-29 17:02:27 | WARNING  | src.main:analyze_and_trade_asset - BNB: Risk check failed: Decision is HOLD
+2025-10-29 17:02:27 | INFO     | src.main:trading_loop - --- Trading Loop Complete ---
+
+2025-10-29 17:07:27 | INFO     | src.main:trading_loop - --- Trading Loop: 2025-10-29 17:07:27 ---
+2025-10-29 17:07:27 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing BTC <<<
+2025-10-29 17:07:27 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for BTC...
+2025-10-29 17:07:29 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for BTC...
+2025-10-29 17:07:31 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for BTC...
+2025-10-29 17:07:31 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for BTC
+2025-10-29 17:09:31 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.25)
+2025-10-29 17:09:31 | INFO     | src.main:analyze_and_trade_asset - AI Decision for BTC: HOLD
+2025-10-29 17:09:31 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.25
+2025-10-29 17:09:31 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 3/10
+2025-10-29 17:09:31 | INFO     | src.main:analyze_and_trade_asset - Market Regime: TRENDING_BEAR
+2025-10-29 17:09:31 | INFO     | src.main:analyze_and_trade_asset - Reasoning: After thorough analysis, the decision is to HOLD due to insufficient confluence and high risks from illiquidity. The market shows a bearish trend with price below all EMAs, high ADX (58.0), and -DI do...
+2025-10-29 17:09:31 | WARNING  | src.main:analyze_and_trade_asset - BTC: Risk check failed: Decision is HOLD
+2025-10-29 17:09:31 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing ETH <<<
+2025-10-29 17:09:31 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for ETH...
+2025-10-29 17:09:33 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for ETH...
+2025-10-29 17:09:35 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for ETH...
+2025-10-29 17:09:35 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for ETH
+2025-10-29 17:11:17 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.3)
+2025-10-29 17:11:17 | INFO     | src.main:analyze_and_trade_asset - AI Decision for ETH: HOLD
+2025-10-29 17:11:17 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.30
+2025-10-29 17:11:17 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 1/10
+2025-10-29 17:11:17 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 17:11:17 | INFO     | src.main:analyze_and_trade_asset - Reasoning: HOLD decision due to insufficient confluence and poor data quality. The market is in a ranging regime with ADX at 4.9 indicating no strong trend, and volume is virtually nonexistent across all timefra...
+2025-10-29 17:11:17 | WARNING  | src.main:analyze_and_trade_asset - ETH: Risk check failed: Decision is HOLD
+2025-10-29 17:11:17 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing DOGE <<<
+2025-10-29 17:11:17 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for DOGE...
+2025-10-29 17:11:20 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for DOGE...
+2025-10-29 17:11:21 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for DOGE...
+2025-10-29 17:11:21 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for DOGE
+2025-10-29 17:13:17 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.2)
+2025-10-29 17:13:17 | INFO     | src.main:analyze_and_trade_asset - AI Decision for DOGE: HOLD
+2025-10-29 17:13:17 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.20
+2025-10-29 17:13:17 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 3/10
+2025-10-29 17:13:17 | INFO     | src.main:analyze_and_trade_asset - Market Regime: TRENDING_BEAR
+2025-10-29 17:13:17 | INFO     | src.main:analyze_and_trade_asset - Reasoning: HOLD decision due to insufficient confluence and high risks from low liquidity. Analysis of multi-timeframe data shows a bearish trend with ADX 35.9 and -DI > +DI, but volumes are critically low (e.g....
+2025-10-29 17:13:17 | WARNING  | src.main:analyze_and_trade_asset - DOGE: Risk check failed: Decision is HOLD
+2025-10-29 17:13:17 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing SOL <<<
+2025-10-29 17:13:17 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for SOL...
+2025-10-29 17:13:20 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for SOL...
+2025-10-29 17:13:21 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for SOL...
+2025-10-29 17:13:21 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for SOL
+2025-10-29 17:15:32 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Failed to parse DeepSeek response: Unterminated string starting at: line 117 column 5 (char 5213)
+2025-10-29 17:15:32 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for SOL, skipping
+2025-10-29 17:15:32 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing BNB <<<
+2025-10-29 17:15:32 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for BNB...
+2025-10-29 17:15:34 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for BNB...
+2025-10-29 17:15:36 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for BNB...
+2025-10-29 17:15:36 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for BNB
+2025-10-29 17:17:15 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.15)
+2025-10-29 17:17:15 | INFO     | src.main:analyze_and_trade_asset - AI Decision for BNB: HOLD
+2025-10-29 17:17:15 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.15
+2025-10-29 17:17:15 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 3/10
+2025-10-29 17:17:15 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 17:17:15 | INFO     | src.main:analyze_and_trade_asset - Reasoning: HOLD decision due to insufficient confluence and ranging market regime. Analysis of multi-timeframe data shows price at $1103.30, slightly above the 24h low of $1095.80 but below all key EMAs and Supe...
+2025-10-29 17:17:15 | WARNING  | src.main:analyze_and_trade_asset - BNB: Risk check failed: Decision is HOLD
+2025-10-29 17:17:15 | INFO     | src.main:trading_loop - --- Trading Loop Complete ---
+
+2025-10-29 17:22:15 | INFO     | src.main:trading_loop - --- Trading Loop: 2025-10-29 17:22:15 ---
+2025-10-29 17:22:15 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing BTC <<<
+2025-10-29 17:22:15 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for BTC...
+2025-10-29 17:22:18 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for BTC...
+2025-10-29 17:22:20 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for BTC...
+2025-10-29 17:22:20 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for BTC
+2025-10-29 17:24:32 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.25)
+2025-10-29 17:24:32 | INFO     | src.main:analyze_and_trade_asset - AI Decision for BTC: HOLD
+2025-10-29 17:24:32 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.25
+2025-10-29 17:24:32 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 2/10
+2025-10-29 17:24:32 | INFO     | src.main:analyze_and_trade_asset - Market Regime: TRENDING_BEAR
+2025-10-29 17:24:32 | INFO     | src.main:analyze_and_trade_asset - Reasoning: HOLD decision due to insufficient confluence and high risks from poor data quality. Analysis reveals a strong bearish trend with price below all EMAs, high ADX, and bearish Supertrend, but oversold RS...
+2025-10-29 17:24:32 | WARNING  | src.main:analyze_and_trade_asset - BTC: Risk check failed: Decision is HOLD
+2025-10-29 17:24:32 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing ETH <<<
+2025-10-29 17:24:32 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for ETH...
+2025-10-29 17:24:35 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for ETH...
+2025-10-29 17:24:37 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for ETH...
+2025-10-29 17:24:37 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for ETH
+2025-10-29 17:26:46 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Failed to parse DeepSeek response: Unterminated string starting at: line 26 column 27 (char 2515)
+2025-10-29 17:26:46 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for ETH, skipping
+2025-10-29 17:26:46 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing DOGE <<<
+2025-10-29 17:26:46 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for DOGE...
+2025-10-29 17:26:48 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for DOGE...
+2025-10-29 17:26:50 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for DOGE...
+2025-10-29 17:26:50 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for DOGE
+2025-10-29 17:28:37 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.3)
+2025-10-29 17:28:37 | INFO     | src.main:analyze_and_trade_asset - AI Decision for DOGE: HOLD
+2025-10-29 17:28:37 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.30
+2025-10-29 17:28:37 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 5/10
+2025-10-29 17:28:37 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 17:28:37 | INFO     | src.main:analyze_and_trade_asset - Reasoning: HOLD decision due to insufficient confluence and high uncertainty. Analysis reveals a ranging market between $0.19-$0.20 with bearish bias from trend indicators (ADX >25, -DI > +DI, EMA bearish alignm...
+2025-10-29 17:28:37 | WARNING  | src.main:analyze_and_trade_asset - DOGE: Risk check failed: Decision is HOLD
+2025-10-29 17:28:37 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing SOL <<<
+2025-10-29 17:28:37 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for SOL...
+2025-10-29 17:28:39 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for SOL...
+2025-10-29 17:28:41 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for SOL...
+2025-10-29 17:28:41 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for SOL
+2025-10-29 17:30:08 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.3)
+2025-10-29 17:30:08 | INFO     | src.main:analyze_and_trade_asset - AI Decision for SOL: HOLD
+2025-10-29 17:30:08 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.30
+2025-10-29 17:30:08 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 3/10
+2025-10-29 17:30:08 | INFO     | src.main:analyze_and_trade_asset - Market Regime: TRENDING_BEAR
+2025-10-29 17:30:08 | INFO     | src.main:analyze_and_trade_asset - Reasoning: HOLD decision due to insufficient confluence for any trade direction. Market regime is TRENDING_BEAR with strong ADX (44.0) and bearish DI crossover, but momentum is mixed with RSI neutral and MACD fl...
+2025-10-29 17:30:08 | WARNING  | src.main:analyze_and_trade_asset - SOL: Risk check failed: Decision is HOLD
+2025-10-29 17:30:08 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing BNB <<<
+2025-10-29 17:30:08 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for BNB...
+2025-10-29 17:30:10 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for BNB...
+2025-10-29 17:30:12 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for BNB...
+2025-10-29 17:30:12 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for BNB
+2025-10-29 17:31:42 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.15)
+2025-10-29 17:31:42 | INFO     | src.main:analyze_and_trade_asset - AI Decision for BNB: HOLD
+2025-10-29 17:31:42 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.15
+2025-10-29 17:31:42 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 1/10
+2025-10-29 17:31:42 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 17:31:42 | INFO     | src.main:analyze_and_trade_asset - Reasoning: INSUFFICIENT DATA AND CONFLUENCE FOR TRADING DECISION. The market shows extremely low liquidity with near-zero volume across all timeframes, making any price action unreliable. Technical indicators ar...
+2025-10-29 17:31:42 | WARNING  | src.main:analyze_and_trade_asset - BNB: Risk check failed: Decision is HOLD
+2025-10-29 17:31:42 | INFO     | src.main:trading_loop - --- Trading Loop Complete ---
+
+2025-10-29 19:18:42 | INFO     | src.main:trading_loop - --- Trading Loop: 2025-10-29 19:18:42 ---
+2025-10-29 19:18:42 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing BTC <<<
+2025-10-29 19:18:42 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for BTC...
+2025-10-29 19:18:45 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for BTC...
+2025-10-29 19:18:46 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for BTC...
+2025-10-29 19:18:46 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for BTC
+2025-10-29 21:14:35 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.3)
+2025-10-29 21:14:35 | INFO     | src.main:analyze_and_trade_asset - AI Decision for BTC: HOLD
+2025-10-29 21:14:35 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.30
+2025-10-29 21:14:35 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 3/10
+2025-10-29 21:14:35 | INFO     | src.main:analyze_and_trade_asset - Market Regime: TRENDING_BEAR
+2025-10-29 21:14:35 | INFO     | src.main:analyze_and_trade_asset - Reasoning: HOLD decision due to insufficient confluence and high-risk environment. The market shows a strong bearish trend with ADX 72.3, price below all EMAs, and Supertrend bearish, but momentum is mixed with ...
+2025-10-29 21:14:35 | WARNING  | src.main:analyze_and_trade_asset - BTC: Risk check failed: Decision is HOLD
+2025-10-29 21:14:35 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing ETH <<<
+2025-10-29 21:14:35 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for ETH...
+2025-10-29 21:14:38 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for ETH...
+2025-10-29 21:14:40 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for ETH...
+2025-10-29 21:14:40 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for ETH
+2025-10-29 21:16:44 | ERROR    | src.ai.deepseek_engine:get_trading_decision - Failed to parse DeepSeek response: Unterminated string starting at: line 93 column 27 (char 3577)
+2025-10-29 21:16:44 | ERROR    | src.main:analyze_and_trade_asset - Failed to get AI decision for ETH, skipping
+2025-10-29 21:16:44 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing DOGE <<<
+2025-10-29 21:16:44 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for DOGE...
+2025-10-29 21:16:47 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for DOGE...
+2025-10-29 21:16:48 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for DOGE...
+2025-10-29 21:16:48 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for DOGE
+2025-10-29 21:29:07 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.3)
+2025-10-29 21:29:07 | INFO     | src.main:analyze_and_trade_asset - AI Decision for DOGE: HOLD
+2025-10-29 21:29:07 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.30
+2025-10-29 21:29:07 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 3/10
+2025-10-29 21:29:07 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 21:29:07 | INFO     | src.main:analyze_and_trade_asset - Reasoning: Market is ranging with ADX 15.2 and price stuck between $0.19-$0.20. Low volume and neutral indicators show no clear direction. Confluence score of 3/11 is below minimum for any trade setup. No liquid...
+2025-10-29 21:29:07 | WARNING  | src.main:analyze_and_trade_asset - DOGE: Risk check failed: Decision is HOLD
+2025-10-29 21:29:07 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing SOL <<<
+2025-10-29 21:29:07 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for SOL...
+2025-10-29 21:29:10 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for SOL...
+2025-10-29 21:29:12 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for SOL...
+2025-10-29 21:29:12 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for SOL
+2025-10-29 21:30:36 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.35)
+2025-10-29 21:30:36 | INFO     | src.main:analyze_and_trade_asset - AI Decision for SOL: HOLD
+2025-10-29 21:30:36 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.35
+2025-10-29 21:30:36 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 2/10
+2025-10-29 21:30:36 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 21:30:36 | INFO     | src.main:analyze_and_trade_asset - Reasoning: HOLD due to insufficient confluence (2/11) and low confidence. Market is ranging with ADX 6.4, no clear trend. Price below EMAs and VWAP suggests slight bearish bias, but momentum is neutral with RSI ...
+2025-10-29 21:30:36 | WARNING  | src.main:analyze_and_trade_asset - SOL: Risk check failed: Decision is HOLD
+2025-10-29 21:30:36 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing BNB <<<
+2025-10-29 21:30:36 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for BNB...
+2025-10-29 21:30:38 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for BNB...
+2025-10-29 21:30:40 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for BNB...
+2025-10-29 21:30:40 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for BNB
+2025-10-29 21:32:10 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.25)
+2025-10-29 21:32:10 | INFO     | src.main:analyze_and_trade_asset - AI Decision for BNB: HOLD
+2025-10-29 21:32:10 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.25
+2025-10-29 21:32:10 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 2/10
+2025-10-29 21:32:10 | INFO     | src.main:analyze_and_trade_asset - Market Regime: TRENDING_BEAR
+2025-10-29 21:32:10 | INFO     | src.main:analyze_and_trade_asset - Reasoning: No clear liquidity grab or trade setup due to low confluence (2/11). Market is in a strong bearish trend (ADX 57.5, -DI > +DI), but momentum is neutral (RSI ~50, MACD flat) and volume is negligible, i...
+2025-10-29 21:32:10 | WARNING  | src.main:analyze_and_trade_asset - BNB: Risk check failed: Decision is HOLD
+2025-10-29 21:32:10 | INFO     | src.main:trading_loop - --- Trading Loop Complete ---
+
+2025-10-29 21:37:10 | INFO     | src.main:trading_loop - --- Trading Loop: 2025-10-29 21:37:10 ---
+2025-10-29 21:37:10 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing BTC <<<
+2025-10-29 21:37:10 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for BTC...
+2025-10-29 21:37:13 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for BTC...
+2025-10-29 21:37:15 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for BTC...
+2025-10-29 21:37:15 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for BTC
+2025-10-29 21:38:47 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.2)
+2025-10-29 21:38:47 | INFO     | src.main:analyze_and_trade_asset - AI Decision for BTC: HOLD
+2025-10-29 21:38:47 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.20
+2025-10-29 21:38:47 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 1/10
+2025-10-29 21:38:47 | INFO     | src.main:analyze_and_trade_asset - Market Regime: TRENDING_BEAR
+2025-10-29 21:38:47 | INFO     | src.main:analyze_and_trade_asset - Reasoning: No liquidity grab detected. Market in strong bearish trend (ADX 61.6, price below EMAs). Low volume and liquidity indicate lack of conviction. RSI neutral but not oversold. Insufficient confluence (1/...
+2025-10-29 21:38:47 | WARNING  | src.main:analyze_and_trade_asset - BTC: Risk check failed: Decision is HOLD
+2025-10-29 21:38:47 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing ETH <<<
+2025-10-29 21:38:47 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for ETH...
+2025-10-29 21:38:50 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for ETH...
+2025-10-29 21:38:51 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for ETH...
+2025-10-29 21:38:51 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for ETH
+2025-10-29 21:40:21 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.3)
+2025-10-29 21:40:21 | INFO     | src.main:analyze_and_trade_asset - AI Decision for ETH: HOLD
+2025-10-29 21:40:21 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.30
+2025-10-29 21:40:21 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 2/10
+2025-10-29 21:40:21 | INFO     | src.main:analyze_and_trade_asset - Market Regime: TRENDING_BEAR
+2025-10-29 21:40:21 | INFO     | src.main:analyze_and_trade_asset - Reasoning: No liquidity grab detected due to missing chart history. Confluence too low (2/11): bearish trend with ADX and -DI dominance, low volume, and neutral microstructure. RSI oversold but no volume confirm...
+2025-10-29 21:40:21 | WARNING  | src.main:analyze_and_trade_asset - ETH: Risk check failed: Decision is HOLD
+2025-10-29 21:40:21 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing DOGE <<<
+2025-10-29 21:40:21 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for DOGE...
+2025-10-29 21:40:24 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for DOGE...
+2025-10-29 21:40:26 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for DOGE...
+2025-10-29 21:40:26 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for DOGE
+2025-10-29 21:41:32 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.2)
+2025-10-29 21:41:32 | INFO     | src.main:analyze_and_trade_asset - AI Decision for DOGE: HOLD
+2025-10-29 21:41:32 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.20
+2025-10-29 21:41:32 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 1/10
+2025-10-29 21:41:32 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 21:41:32 | INFO     | src.main:analyze_and_trade_asset - Reasoning: No clear liquidity grab or trade setup. Market is ranging with low ADX (9.9), weak volume (ratio 0.68x), and neutral momentum. Orderbook shows zero liquidity, increasing slippage risk. Insufficient co...
+2025-10-29 21:41:32 | WARNING  | src.main:analyze_and_trade_asset - DOGE: Risk check failed: Decision is HOLD
+2025-10-29 21:41:32 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing SOL <<<
+2025-10-29 21:41:32 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for SOL...
+2025-10-29 21:41:35 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for SOL...
+2025-10-29 21:41:37 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for SOL...
+2025-10-29 21:41:37 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for SOL
+2025-10-29 21:42:53 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: HOLD (confidence: 0.25)
+2025-10-29 21:42:53 | INFO     | src.main:analyze_and_trade_asset - AI Decision for SOL: HOLD
+2025-10-29 21:42:53 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: NO_SETUP | Confidence: 0.25
+2025-10-29 21:42:53 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 1/10
+2025-10-29 21:42:53 | INFO     | src.main:analyze_and_trade_asset - Market Regime: RANGING
+2025-10-29 21:42:53 | INFO     | src.main:analyze_and_trade_asset - Reasoning: No liquidity grab identified and insufficient confluence (1/11). Market is ranging with low ADX (3.4), mixed EMAs, neutral momentum, and very low volume. Orderbook data missing, funding neutral. Risk/...
+2025-10-29 21:42:53 | WARNING  | src.main:analyze_and_trade_asset - SOL: Risk check failed: Decision is HOLD
+2025-10-29 21:42:53 | INFO     | src.main:analyze_and_trade_asset - 
+>>> Analyzing BNB <<<
+2025-10-29 21:42:53 | INFO     | src.main:analyze_and_trade_asset - Fetching market data for BNB...
+2025-10-29 21:42:56 | INFO     | src.main:analyze_and_trade_asset - Calculating technical indicators for BNB...
+2025-10-29 21:42:57 | INFO     | src.main:analyze_and_trade_asset - Requesting AI trading decision for BNB...
+2025-10-29 21:42:57 | INFO     | src.ai.deepseek_engine:get_trading_decision - Requesting trading decision from DeepSeek for BNB
+2025-10-29 21:44:25 | INFO     | src.ai.deepseek_engine:get_trading_decision - Received decision from DeepSeek: SELL (confidence: 0.65)
+2025-10-29 21:44:25 | INFO     | src.main:analyze_and_trade_asset - AI Decision for BNB: SELL
+2025-10-29 21:44:25 | INFO     | src.main:analyze_and_trade_asset - Setup Quality: B | Confidence: 0.65
+2025-10-29 21:44:25 | INFO     | src.main:analyze_and_trade_asset - Confluence Score: 6/10
+2025-10-29 21:44:25 | INFO     | src.main:analyze_and_trade_asset - Market Regime: TRENDING_BEAR
+2025-10-29 21:44:25 | INFO     | src.main:analyze_and_trade_asset - Reasoning: SHORT setup with moderate confluence (6/11). Strong bearish trend confirmed by ADX 57.5 and -DI dominance. Price is below key VWAP and near Bollinger Band upper resistance at $1121.85. Low volume sugg...
+2025-10-29 21:44:25 | INFO     | src.main:execute_entry - BNB: Position sizing: $688 (~0.6158 BNB)
+2025-10-29 21:44:25 | INFO     | src.main:execute_entry - BNB: Sizing reasoning: Risk: 0.80% ($8). Normal volatility. Trending market. No significant drawdown. Max position: $688
+2025-10-29 21:44:25 | INFO     | src.main:execute_entry - BNB: Using 2x leverage
+2025-10-29 21:44:25 | INFO     | src.main:execute_entry - BNB: Placing LIMIT SELL order:
+2025-10-29 21:44:25 | INFO     | src.main:execute_entry -   Entry: $1117.35
+2025-10-29 21:44:25 | INFO     | src.main:execute_entry -   Quantity: 0.6158 BNB
+2025-10-29 21:44:25 | INFO     | src.main:execute_entry -   Stop Loss: $1122.00 (0.42%)
+2025-10-29 21:44:25 | INFO     | src.main:execute_entry -   TP Targets: 3
+2025-10-29 21:44:25 | INFO     | src.hyperliquid.client:place_order - Placing LIMIT SELL order: 0.6157888096836264 BNB @ 1117.35
+2025-10-29 21:44:26 | ERROR    | src.hyperliquid.client:_request - API request failed: 404, message='Not Found', url=URL('https://api.hyperliquid-testnet.xyz/exchange/order')
+2025-10-29 21:44:26 | ERROR    | src.hyperliquid.client:place_order - Failed to place order: 404, message='Not Found', url=URL('https://api.hyperliquid-testnet.xyz/exchange/order')
+2025-10-29 21:44:26 | ERROR    | src.main:execute_entry - BNB: Failed to execute entry: 404, message='Not Found', url=URL('https://api.hyperliquid-testnet.xyz/exchange/order')
+Traceback (most recent call last):
+
+  File "/Users/benjaminjeschke/Documents/apps/hyper-bot/hyper-bot/run_bot.py", line 12, in <module>
+    asyncio.run(main())
+
+  File "/Users/benjaminjeschke/miniconda3/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+  File "/Users/benjaminjeschke/miniconda3/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/benjaminjeschke/miniconda3/lib/python3.13/asyncio/base_events.py", line 712, in run_until_complete
+    self.run_forever()
+  File "/Users/benjaminjeschke/miniconda3/lib/python3.13/asyncio/base_events.py", line 683, in run_forever
+    self._run_once()
+  File "/Users/benjaminjeschke/miniconda3/lib/python3.13/asyncio/base_events.py", line 2042, in _run_once
+    handle._run()
+  File "/Users/benjaminjeschke/miniconda3/lib/python3.13/asyncio/events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+
+  File "/Users/benjaminjeschke/Documents/apps/hyper-bot/hyper-bot/src/main.py", line 415, in main
+    self.position_manager.remove_position(position.asset)
+
+  File "/Users/benjaminjeschke/Documents/apps/hyper-bot/hyper-bot/src/main.py", line 120, in start
+    try:
+
+  File "/Users/benjaminjeschke/Documents/apps/hyper-bot/hyper-bot/src/main.py", line 150, in trading_loop
+    if not can_trade:
+
+  File "/Users/benjaminjeschke/Documents/apps/hyper-bot/hyper-bot/src/main.py", line 222, in analyze_and_trade_asset
+    logger.info(f"Market Regime: {decision.market_regime.primary.value}")
+
+> File "/Users/benjaminjeschke/Documents/apps/hyper-bot/hyper-bot/src/main.py", line 271, in execute_entry
+    volatility = indicators.atr_percent if indicators and indicators.atr_percent else 2.0
+
+  File "/Users/benjaminjeschke/Documents/apps/hyper-bot/hyper-bot/src/hyperliquid/client.py", line 480, in place_order
+    price: Limit price (required for LIMIT orders)
+
+  File "/Users/benjaminjeschke/Documents/apps/hyper-bot/hyper-bot/src/hyperliquid/client.py", line 124, in _request
+    data = signed_data
+
+  File "/Users/benjaminjeschke/Documents/apps/hyper-bot/hyper-bot/venv/lib/python3.13/site-packages/aiohttp/client_reqrep.py", line 1070, in raise_for_status
+    raise ClientResponseError(
+
+aiohttp.client_exceptions.ClientResponseError: 404, message='Not Found', url=URL('https://api.hyperliquid-testnet.xyz/exchange/order')
+2025-10-29 21:44:26 | INFO     | src.main:trading_loop - --- Trading Loop Complete ---
+

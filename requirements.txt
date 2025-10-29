@@ -1,0 +1,27 @@
+# Core Dependencies
+python-dotenv==1.0.0
+aiohttp==3.9.5
+
+# Data Processing (using newer versions compatible with Python 3.13)
+pandas>=2.2.0
+numpy>=1.26.0
+
+# Technical Analysis
+ta>=0.11.0
+
+# AI Integration
+openai>=1.54.0  # Compatible with DeepSeek API
+
+# Hyperliquid (Wallet-based authentication)
+eth-account>=0.10.0
+web3>=6.0.0
+
+# Logging & Monitoring
+loguru==0.7.2
+
+# Testing (optional)
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+
+# Utils
+requests>=2.31.0
