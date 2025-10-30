@@ -202,17 +202,9 @@ _Identifiziere:_
         else:
             data_prompt += "\n## Current Positions: None\n"
 
-        # Add analysis request
+        # Add analysis request (concise, no CoT)
         data_prompt += """
-Based on this data, provide your trading decision following the system prompt guidelines.
-Remember to:
-1. Check for confluence (minimum 4 factors)
-2. Assess market regime
-3. Calculate risk/reward
-4. Consider Hyperliquid-specific factors (funding, liquidations)
-5. Provide detailed reasoning
-
-Respond ONLY with valid JSON matching the output format specified in the system prompt.
+Follow the system prompt. Output JSON only, strictly matching the schema. No chain-of-thought.
 """
 
         return data_prompt
@@ -346,15 +338,37 @@ Respond ONLY with valid JSON matching the output format specified in the system 
             liquidation_distance_pct=risk_data.get("liquidation_distance_pct", 0.0)
         )
 
+        # Normalize setup_quality to internal enum values
+        setup_quality_raw = data.get("setup_quality", "NO_SETUP")
+        if setup_quality_raw == "A_PLUS":
+            setup_quality_raw = "A+"
+        if setup_quality_raw == "NONE":
+            setup_quality_raw = "NO_SETUP"
+
+        # Build reasoning from rationale/evidence if explicit reasoning missing
+        reasoning_text = data.get("reasoning")
+        if not reasoning_text:
+            rationale = data.get("rationale")
+            evidence = data.get("evidence", [])
+            bullets = "\n".join([f"- {e}" for e in evidence]) if evidence else ""
+            reasoning_text = (rationale or "").strip()
+            if bullets:
+                reasoning_text = (reasoning_text + ("\n" if reasoning_text else "") + bullets).strip()
+
+        # If key_factors missing but evidence provided, store as key_factors.evidence
+        key_factors = data.get("key_factors")
+        if not key_factors and data.get("evidence"):
+            key_factors = {"evidence": data.get("evidence")}
+
         return TradingDecision(
             decision=Decision(data.get("decision", "HOLD")),
-            setup_quality=SetupQuality(data.get("setup_quality", "NO_SETUP")),
+            setup_quality=SetupQuality(setup_quality_raw),
             confidence=data.get("confidence", 0.0),
             confluence_score=data.get("confluence_score", 0),
             market_regime=market_regime,
             confluence_analysis=confluence_analysis,
-            reasoning=data.get("reasoning", ""),
-            key_factors=data.get("key_factors", {}),
+            reasoning=reasoning_text,
+            key_factors=key_factors or {},
             indicators_summary=indicators_summary,
             suggested_action=suggested_action,
             risk_assessment=risk_assessment,
@@ -365,7 +379,11 @@ Respond ONLY with valid JSON matching the output format specified in the system 
         )
 
     def _parse_suggested_action(self, action_data: Dict[str, Any]) -> SuggestedAction:
-        """Parse suggested action from JSON."""
+        """Parse suggested action from JSON.
+
+        Supports both legacy shape with explicit stop_loss/take_profit_targets and
+        the v2 concise shape with entry_level/invalidation_level/tp_levels.
+        """
         from src.utils.models import (
             OrderType,
             OrderSide,
@@ -374,32 +392,76 @@ Respond ONLY with valid JSON matching the output format specified in the system 
             TrailingStop
         )
 
-        # Parse stop loss
+        # v2 shape detection
+        if "entry_level" in action_data or "invalidation_level" in action_data:
+            entry_price = action_data.get("entry_level", 0.0)
+            invalidation = action_data.get("invalidation_level", 0.0)
+            tp_levels = action_data.get("tp_levels", []) or []
+            rr_snapshot = action_data.get("rr_snapshot", {})
+
+            stop_loss = StopLoss(
+                price=invalidation,
+                reasoning="invalidation_level",
+                distance_pct=(abs(entry_price - invalidation) / entry_price * 100.0) if entry_price else 0.0,
+                dollar_risk=0.0,
+            )
+
+            tp_targets: list[TakeProfitTarget] = []
+            for i, price in enumerate(tp_levels[:3], start=1):
+                rr = rr_snapshot.get(f"tp{i}", 0.0)
+                tp_targets.append(TakeProfitTarget(
+                    target=i,
+                    price=price,
+                    percentage_to_close=33,
+                    reasoning="level",
+                    rr_ratio=rr,
+                ))
+
+            trailing_stop = TrailingStop(
+                activate_at_rr=2.0,
+                trail_at_rr=1.0,
+                method="EMA_20",
+            )
+
+            return SuggestedAction(
+                type=OrderType(action_data.get("type", "LIMIT")),
+                side=OrderSide(action_data.get("side", "BUY")),
+                size_percentage=action_data.get("size_percentage", 0),
+                quantity=action_data.get("quantity", 0.0),
+                entry_price=entry_price,
+                entry_price_rationale=action_data.get("execution_notes", ""),
+                stop_loss=stop_loss,
+                take_profit_targets=tp_targets,
+                trailing_stop=trailing_stop,
+                execution_notes=action_data.get("execution_notes", ""),
+            )
+
+        # Legacy shape fallback
         sl_data = action_data.get("stop_loss", {})
         stop_loss = StopLoss(
             price=sl_data.get("price", 0.0),
             reasoning=sl_data.get("reasoning", ""),
             distance_pct=sl_data.get("distance_pct", 0.0),
-            dollar_risk=sl_data.get("dollar_risk", 0.0)
+            dollar_risk=sl_data.get("dollar_risk", 0.0),
         )
 
-        # Parse take profit targets
         tp_targets = []
         for tp_data in action_data.get("take_profit_targets", []):
-            tp_targets.append(TakeProfitTarget(
-                target=tp_data.get("target", 1),
-                price=tp_data.get("price", 0.0),
-                percentage_to_close=tp_data.get("percentage_to_close", 100),
-                reasoning=tp_data.get("reasoning", ""),
-                rr_ratio=tp_data.get("rr_ratio", 1.0)
-            ))
+            tp_targets.append(
+                TakeProfitTarget(
+                    target=tp_data.get("target", 1),
+                    price=tp_data.get("price", 0.0),
+                    percentage_to_close=tp_data.get("percentage_to_close", 100),
+                    reasoning=tp_data.get("reasoning", ""),
+                    rr_ratio=tp_data.get("rr_ratio", 1.0),
+                )
+            )
 
-        # Parse trailing stop
         ts_data = action_data.get("trailing_stop", {})
         trailing_stop = TrailingStop(
             activate_at_rr=ts_data.get("activate_at_rr", 2.0),
             trail_at_rr=ts_data.get("trail_at_rr", 1.0),
-            method=ts_data.get("method", "EMA_20")
+            method=ts_data.get("method", "EMA_20"),
         )
 
         return SuggestedAction(
@@ -412,10 +474,16 @@ Respond ONLY with valid JSON matching the output format specified in the system 
             stop_loss=stop_loss,
             take_profit_targets=tp_targets,
             trailing_stop=trailing_stop,
-            execution_notes=action_data.get("execution_notes", "")
+            execution_notes=action_data.get("execution_notes", ""),
         )
 
-    def validate_decision(self, decision: TradingDecision, min_confidence: float = 0.6) -> tuple[bool, str]:
+    def validate_decision(
+        self,
+        decision: TradingDecision,
+        min_confidence: float = 0.6,
+        min_confluence: int = 4,
+        min_rr: float = 2.2,
+    ) -> tuple[bool, str]:
         """
         Validate trading decision before execution.
 
@@ -432,8 +500,8 @@ Respond ONLY with valid JSON matching the output format specified in the system 
         if decision.confidence < min_confidence:
             return False, f"Confidence too low: {decision.confidence:.2f} < {min_confidence}"
 
-        if decision.confluence_score < 4:
-            return False, f"Insufficient confluence: {decision.confluence_score} < 4"
+        if decision.confluence_score < min_confluence:
+            return False, f"Insufficient confluence: {decision.confluence_score} < {min_confluence}"
 
         if decision.setup_quality in [SetupQuality.C, SetupQuality.NO_SETUP]:
             return False, f"Setup quality too low: {decision.setup_quality}"
@@ -441,8 +509,8 @@ Respond ONLY with valid JSON matching the output format specified in the system 
         if decision.risk_assessment.liquidity_check == "FAIL":
             return False, "Liquidity check failed"
 
-        if decision.risk_assessment.risk_reward_ratio < 2.0:
-            return False, f"R:R ratio too low: {decision.risk_assessment.risk_reward_ratio:.2f}"
+        if decision.risk_assessment.risk_reward_ratio < min_rr:
+            return False, f"R:R ratio too low: {decision.risk_assessment.risk_reward_ratio:.2f} < {min_rr:.2f}"
 
         if not decision.suggested_action:
             return False, "No suggested action provided"

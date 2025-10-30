@@ -34,6 +34,7 @@ class DeepSeekConfig:
     model: str = "deepseek-chat"
     temperature: float = 0.1  # Low temperature for consistent trading decisions
     max_tokens: int = 1500  # Reduced for token efficiency
+    multi_agent_enabled: bool = False  # Use multi-agent system (5 agents discussing)
 
 
 @dataclass
@@ -69,13 +70,19 @@ class TradingConfig:
     # Stop loss / take profit
     stop_loss_percent: float = 0.05  # Base 5%, will be dynamic
     take_profit_percent: float = 0.08
-    min_risk_reward: float = 2.0
+    min_risk_reward: float = 2.2
 
     # Liquidity requirements
     min_volume_24h: float = 1_000_000.0
     min_orderbook_depth: float = 50_000.0
     max_spread_bps: float = 10.0
     max_slippage: float = 0.005  # 0.5%
+
+    # Execution guards
+    trade_cooldown_minutes: int = 60
+    ai_latency_guard_ms: int = 400
+    adx_low_threshold: float = 18.0
+    adx_low_size_cap: float = 0.5
 
     # Drawdown limits
     daily_loss_limit: float = 0.05
@@ -155,7 +162,8 @@ class Config:
         self.deepseek = DeepSeekConfig(
             api_key=os.getenv("DEEPSEEK_API_KEY", ""),
             base_url=os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com"),
-            model=os.getenv("DEEPSEEK_MODEL", "deepseek-chat")
+            model=os.getenv("DEEPSEEK_MODEL", "deepseek-chat"),
+            multi_agent_enabled=os.getenv("MULTI_AGENT_ENABLED", "false").lower() == "true"
         )
 
         # Parse trading assets (comma-separated list)
@@ -174,7 +182,13 @@ class Config:
             min_confidence=float(os.getenv("MIN_CONFIDENCE", "0.6")),
             stop_loss_percent=float(os.getenv("STOP_LOSS_PERCENT", "0.05")),
             take_profit_percent=float(os.getenv("TAKE_PROFIT_PERCENT", "0.08")),
-            min_volume_24h=float(os.getenv("MIN_LIQUIDITY", "1000000"))
+            min_volume_24h=float(os.getenv("MIN_LIQUIDITY", "1000000")),
+            min_risk_reward=float(os.getenv("MIN_RISK_REWARD", "2.2")),
+            max_spread_bps=float(os.getenv("MAX_SPREAD_BPS", "10.0")),
+            trade_cooldown_minutes=int(os.getenv("TRADE_COOLDOWN_MINUTES", "60")),
+            ai_latency_guard_ms=int(os.getenv("AI_LATENCY_GUARD_MS", "400")),
+            adx_low_threshold=float(os.getenv("ADX_LOW_THRESHOLD", "18.0")),
+            adx_low_size_cap=float(os.getenv("ADX_LOW_SIZE_CAP", "0.5")),
         )
 
         # Parse copy trading wallets (comma-separated list)

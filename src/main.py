@@ -40,7 +40,18 @@ class TradingBot:
 
         # Initialize components
         self.hl_client = HyperliquidClient(config.hyperliquid)
-        self.ai_engine = DeepSeekEngine(config.deepseek)
+
+        # Initialize AI: Multi-Agent System OR Single Agent
+        if config.deepseek.multi_agent_enabled:
+            from src.agents.orchestrator import TradingDeskOrchestrator
+            self.trading_desk = TradingDeskOrchestrator(config.deepseek.api_key)
+            self.ai_engine = None
+            logger.info("🏢 Using Multi-Agent Trading Desk (5 agents)")
+        else:
+            self.ai_engine = DeepSeekEngine(config.deepseek)
+            self.trading_desk = None
+            logger.info("🤖 Using Single-Agent DeepSeek Engine")
+
         self.risk_manager = RiskManager(config.trading, config.risk)
         self.performance_tracker = PerformanceTracker()
         self.position_manager = PositionManager()
@@ -188,6 +199,11 @@ class TradingBot:
             # 2. Get orderbook
             orderbook = await self.hl_client.get_orderbook(asset, depth=20)
 
+            # Guard: skip if spread too wide
+            if orderbook and orderbook.spread_bps and orderbook.spread_bps > config.trading.max_spread_bps:
+                logger.warning(f"{asset}: Spread {orderbook.spread_bps:.1f} bps > max {config.trading.max_spread_bps:.1f} bps. Skipping.")
+                return
+
             # 3. Get derivatives data
             derivatives = await self.hl_client.get_funding_rate(asset)
 
@@ -200,16 +216,52 @@ class TradingBot:
                 if candles:
                     indicators[timeframe] = await TechnicalAnalysis.calculate_all_indicators(candles, timeframe)
 
-            # 5. Get AI decision
+            # 5. Get AI decision (Single-Agent OR Multi-Agent)
             logger.info(f"Requesting AI trading decision for {asset}...")
-            decision = await self.ai_engine.get_trading_decision(
-                asset=asset,
-                market_data=market_data,
-                indicators=indicators,
-                orderbook=orderbook,
-                derivatives=derivatives,
-                portfolio=portfolio
-            )
+            start_ai = datetime.now()
+
+            if self.trading_desk:
+                # Multi-Agent System: Trading Desk Discussion
+                # Use current_price from MultiTimeframeData
+                price = market_data.current_price
+
+                # Build indicators summary (fix attribute names)
+                indicators_summary = {}
+                if '1h' in indicators and indicators['1h']:
+                    ind_1h = indicators['1h']
+                    indicators_summary['rsi'] = ind_1h.rsi_1h if hasattr(ind_1h, 'rsi_1h') else None
+                    indicators_summary['adx'] = ind_1h.adx if hasattr(ind_1h, 'adx') else None
+                    if hasattr(ind_1h, 'macd_1h') and ind_1h.macd_1h:
+                        indicators_summary['macd'] = ind_1h.macd_1h.histogram
+                    else:
+                        indicators_summary['macd'] = None
+
+                context = {
+                    'asset': asset,
+                    'price': price,
+                    'indicators': indicators_summary,
+                    'market_data': market_data,
+                    'full_indicators': indicators,
+                    'orderbook': orderbook,
+                    'derivatives': derivatives,
+                    'portfolio': portfolio
+                }
+                decision = await self.trading_desk.run_trading_discussion(context)
+            else:
+                # Single-Agent System: DeepSeek Engine
+                decision = await self.ai_engine.get_trading_decision(
+                    asset=asset,
+                    market_data=market_data,
+                    indicators=indicators,
+                    orderbook=orderbook,
+                    derivatives=derivatives,
+                    portfolio=portfolio
+                )
+
+            ai_ms = (datetime.now() - start_ai).total_seconds() * 1000
+            if ai_ms > config.trading.ai_latency_guard_ms:
+                logger.warning(f"{asset}: AI latency {ai_ms:.0f}ms > guard {config.trading.ai_latency_guard_ms}ms. Holding.")
+                return
 
             if not decision:
                 logger.error(f"Failed to get AI decision for {asset}, skipping")
@@ -222,15 +274,18 @@ class TradingBot:
             logger.info(f"Market Regime: {decision.market_regime.primary.value}")
             logger.info(f"Reasoning: {decision.reasoning[:200]}...")
 
-            # 6. Validate decision
-            is_valid, validation_msg = self.ai_engine.validate_decision(
-                decision,
-                min_confidence=config.trading.min_confidence
-            )
+            # 6. Validate decision (skip for multi-agent system as it has its own validation)
+            if self.ai_engine:
+                is_valid, validation_msg = self.ai_engine.validate_decision(
+                    decision,
+                    min_confidence=config.trading.min_confidence,
+                    min_confluence=config.trading.min_confluence_score,
+                    min_rr=config.trading.min_risk_reward,
+                )
 
-            if not is_valid:
-                logger.warning(f"{asset}: Decision validation failed: {validation_msg}")
-                return
+                if not is_valid:
+                    logger.warning(f"{asset}: Decision validation failed: {validation_msg}")
+                    return
 
             # 7. Performance-based quality filtering
             if self.performance_tracker.should_only_trade_aplus_setups():
@@ -273,6 +328,14 @@ class TradingBot:
                 decision, portfolio, volatility
             )
 
+            # ADX low-volatility guard: cap size
+            if indicators and getattr(indicators, 'adx', None) is not None:
+                adx_val = indicators.adx
+                if adx_val is not None and adx_val < config.trading.adx_low_threshold:
+                    capped = position_size_usd * config.trading.adx_low_size_cap
+                    logger.warning(f"{asset}: ADX {adx_val:.1f} < {config.trading.adx_low_threshold:.1f} → size cap {config.trading.adx_low_size_cap*100:.0f}% (${position_size_usd:,.0f} → ${capped:,.0f})")
+                    position_size_usd = capped
+
             # Apply performance-based modifier
             size_modifier = self.performance_tracker.get_position_size_modifier()
             if size_modifier < 1.0:
@@ -311,6 +374,9 @@ class TradingBot:
             )
 
             logger.success(f"{asset}: Order placed successfully: {order_result}")
+
+            # Mark cooldown for this asset
+            self.risk_manager.mark_asset_trade(asset)
 
             # Log trade to performance tracker
             tp_prices = [tp.price for tp in suggested_action.take_profit_targets]

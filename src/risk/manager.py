@@ -1,6 +1,7 @@
 """Risk management for the trading bot."""
 
 from typing import Optional, Tuple
+from datetime import datetime, timedelta
 from loguru import logger
 
 from src.config import TradingConfig, RiskConfig
@@ -31,6 +32,7 @@ class RiskManager:
         self.daily_trades = 0
         self.daily_pnl = 0.0
         self.peak_equity = 0.0
+        self._last_trade_ts: dict[str, datetime] = {}
 
     def calculate_position_size(
         self,
@@ -144,6 +146,15 @@ class RiskManager:
         if decision.decision == Decision.HOLD:
             return False, "Decision is HOLD"
 
+        # Per-asset cooldown (entries only)
+        if decision.decision in [Decision.BUY, Decision.SELL]:
+            last_ts = self._last_trade_ts.get(asset)
+            if last_ts:
+                elapsed = datetime.utcnow() - last_ts
+                if elapsed < timedelta(minutes=self.trading_config.trade_cooldown_minutes):
+                    wait_min = int((timedelta(minutes=self.trading_config.trade_cooldown_minutes) - elapsed).total_seconds() // 60) + 1
+                    return False, f"Cooldown active for {asset}: wait ~{wait_min} min"
+
         # Check daily trade limit
         if self.daily_trades >= self.risk_config.max_daily_trades:
             return False, f"Daily trade limit reached ({self.risk_config.max_daily_trades})"
@@ -203,6 +214,10 @@ class RiskManager:
                 return False, f"Too many correlated positions ({correlated_positions})"
 
         return True, "All risk checks passed"
+
+    def mark_asset_trade(self, asset: str) -> None:
+        """Record a trade timestamp for cooldown enforcement."""
+        self._last_trade_ts[asset] = datetime.utcnow()
 
     def calculate_new_exposure(self, portfolio: Portfolio, position_size: float, asset: str) -> float:
         """Calculate what the exposure would be after adding a position."""

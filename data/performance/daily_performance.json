@@ -1,14 +1,14 @@
 {
-  "date": "2025-10-29",
-  "starting_balance": 10000.0,
-  "current_balance": 9700.0,
-  "daily_pnl": -300.0,
-  "daily_pnl_pct": -3.0,
-  "trades_today": 5,
-  "wins_today": 1,
-  "losses_today": 4,
+  "date": "2025-10-30",
+  "starting_balance": 982.930895,
+  "current_balance": 982.930895,
+  "daily_pnl": 0.0,
+  "daily_pnl_pct": 0.0,
+  "trades_today": 0,
+  "wins_today": 0,
+  "losses_today": 0,
   "consecutive_losses": 0,
-  "is_trading_stopped": true,
-  "stop_reason": "Daily loss limit reached: -3%",
-  "last_trade_time": "2025-10-29T21:39:14.031902"
+  "is_trading_stopped": false,
+  "stop_reason": null,
+  "last_trade_time": null
 }
