@@ -195,8 +195,8 @@ class TradingBot:
             logger.info(f"Calculating technical indicators for {asset}...")
             indicators: Dict[str, TechnicalIndicators] = {}
 
-            for timeframe in ["5m", "1h", "4h"]:
-                candles = await self.hl_client.get_candles(asset, timeframe, limit=200)
+            for timeframe in ["1h", "4h"]:  # Reduced timeframes for token efficiency (removed 5m)
+                candles = await self.hl_client.get_candles(asset, timeframe, limit=100)  # Reduced for token efficiency
                 if candles:
                     indicators[timeframe] = await TechnicalAnalysis.calculate_all_indicators(candles, timeframe)
 

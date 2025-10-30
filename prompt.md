@@ -28,15 +28,24 @@ Ein **Liquidity Grab** (auch "Stop Hunt", "Sweep") ist wenn:
 - **Bearish Liquidity Grab**: Preis steigt über letztes Swing High → sofortiger Rejection → SHORT Entry
 
 ### Entry-Regeln (PRIORITÄT!)
-1. **WARTE auf Liquidity Grab**: Identifiziere Swing Highs/Lows aus den letzten 4-24h
-2. **Bestätige den Grab**:
-   - Preis muss ÜBER High / UNTER Low gehen (Wick okay)
-   - Sofortiger Rejection (innerhalb 1-2 Candles)
-   - Erhöhtes Volumen während des Grabs
+1. **WARTE auf Liquidity Grab**: Identifiziere **ALLE** Highs/Lows:
+   - **Major Swing Points**: 4h-24h Highs/Lows (große Liquidity Grabs)
+   - **Minor Swing Points**: 1h-4h Highs/Lows (mittel Grabs)
+   - **MICRO Highs/Lows**: Letzte 15min-1h temporäre Extrema (auch in LANGSAMEN Märkten!)
+
+2. **Bestätige den Grab** (auch kleine Grabs zählen!):
+   - Preis muss ÜBER High / UNTER Low gehen (Wick okay, auch nur 0.1-0.3% reicht!)
+   - Sofortiger Rejection (innerhalb 1-3 Candles)
+   - Volumen kann normal sein (auch in langsamen Märkten traden!)
+
 3. **Entry NACH dem Grab**:
    - LONG: Nach Liquidity Grab unter Swing Low → Entry bei Bounce (aktueller Preis oder leicht darüber)
    - SHORT: Nach Liquidity Grab über Swing High → Entry bei Rejection (aktueller Preis oder leicht darunter)
-4. **Aggressive Entries bevorzugt**: Nicht warten auf "perfekte" Bestätigung - handel die Reversal!
+
+4. **EXTRA AGGRESSIV bei Micro-Grabs**:
+   - Auch temporäre 1h Highs/Lows zählen!
+   - In Konsolidierung/Range: Trade JEDE kleine Liquidity Collection!
+   - Nicht warten auf "perfekte" Bestätigung - handel die Reversal SOFORT!
 
 ### Stop Loss Platzierung (KRITISCH!)
 - **LONG Entry**: Stop Loss 0.5-1% UNTER dem Liquidity Grab Low (nicht unter Entry!)
@@ -48,36 +57,93 @@ Ein **Liquidity Grab** (auch "Stop Hunt", "Sweep") ist wenn:
 - **TP2** (30-40%): Gegenüberliegende Seite der Range / nächstes Major Level (R:R min. 3:1)
 - **TP3** (Rest): Trail mit Supertrend oder EMA20 - lass Gewinner laufen!
 
-### Confluence-Anforderungen (REDUZIERT für aggressive Strategie)
-- **Minimum Confluence**: 3/10 (statt 6/10) wenn Liquidity Grab vorhanden
-- **Minimum Confidence**: 50% (statt 60%) bei klarem Liquidity Grab Setup
-- **Priorität**: Liquidity Grab > Alle anderen Indikatoren
+### Confluence-Anforderungen (SEHR FLEXIBEL!)
+- **Major Liquidity Grab** (4h+ Swing): Min. 3/10 Confluence, 50% Confidence
+- **Minor Liquidity Grab** (1h-4h Swing): Min. 2/10 Confluence, 45% Confidence
+- **MICRO Liquidity Grab** (15min-1h temporär): **NUR 1/10 Confluence reicht!**, 40% Confidence
+- **Langsame Märkte** (ADX <20, niedrige Volatilität): Trade ALLE Micro-Grabs aggressiv!
+- **Priorität**: Liquidity Grab Detection > Confluence > Alle anderen Indikatoren
 
 ### Identifikation von Liquidity Grabs in den Daten
-Analysiere die Chart History und suche nach:
-1. **Swing Highs/Lows**: Lokale Extrempunkte in letzten 4-24h
-2. **Wicks durch Levels**: Candles mit langen Wicks über/unter Swing Points
-3. **Schnelle Reversals**: Preis durchbricht Level → sofort zurück (1-3 Candles)
-4. **Volume Spikes**: Erhöhtes Volumen beim Grab
+Analysiere die Chart History und suche nach **ALLEN** Liquidity Grabs:
 
-### Decision Logic (NEUE PRIORITÄT)
+**1. MAJOR Grabs** (4h-24h Swings):
+   - Große Swing Highs/Lows der letzten 24h
+   - Deutliche Wicks durch wichtige Levels
+   - Schnelle Reversals mit erhöhtem Volumen
+
+**2. MINOR Grabs** (1h-4h Swings):
+   - Lokale Extrempunkte der letzten 4-8h
+   - Wick-Durchbrüche auch ohne großes Volumen okay
+   - Reversal innerhalb 2-4 Candles
+
+**3. MICRO Grabs** (15min-1h temporär) - **AUCH IN LANGSAMEN MÄRKTEN!**:
+   - Letzte 1-2h: Wo war das lokale High/Low?
+   - Hat Preis kurz (0.1-0.5%) darüber/darunter gespiked?
+   - Ist Preis danach sofort zurückgekommen?
+   - **→ TRADE ES!** Auch ohne Confluence/Volumen!
+   - **Besonders in Ranges/Konsolidierung**: Jeder Micro-Grab = Entry Signal!
+
+### Decision Logic (NEUE PRIORITÄT - SEHR AGGRESSIV!)
 ```
-IF Liquidity_Grab_Detected:
-    IF Price_Reversed_Back (innerhalb 1-3 Candles):
-        IF Confluence >= 3/10:
-            → AGGRESSIVE ENTRY
-            → Stop Loss hinter Liquidity Grab
-        ELSE:
-            → HOLD (warte auf besseres Setup)
-    ELSE:
-        → HOLD (kein echter Grab, nur Breakout)
+// SCHRITT 1: Identifiziere Liquidity Grab Typ
+IF MAJOR_Grab_Detected (4h+ Swing):
+    IF Price_Reversed_Back AND Confluence >= 3/10 AND Confidence >= 50%:
+        → AGGRESSIVE ENTRY
+
+ELSE IF MINOR_Grab_Detected (1h-4h Swing):
+    IF Price_Reversed_Back AND Confluence >= 2/10 AND Confidence >= 45%:
+        → AGGRESSIVE ENTRY
+
+ELSE IF MICRO_Grab_Detected (15min-1h temporär):
+    IF Price_Reversed_Back AND Confluence >= 1/10 AND Confidence >= 40%:
+        → **SEHR AGGRESSIVE ENTRY!**
+        → **BESONDERS in langsamen Märkten (ADX <20)!**
+        → Auch ohne perfekte Confluence - TRADE ES!
+
+ELSE IF Slow_Market (ADX <20, niedrige Volatilität) AND Any_Temporary_High_Low:
+    IF Small_Wick_Above_Below (auch nur 0.1-0.3%):
+        → **TRADE SOFORT!** (In Ranges ist jede Liquidity = Trade)
+
 ELSE:
-    → Nutze normale Confluence-basierte Strategie
+    → Nutze normale Confluence-basierte Strategie (Confidence >= 60%, Confluence >= 6/10)
 ```
+
+### 🐌 LANGSAME MÄRKTE / KONSOLIDIERUNG (SPEZIAL-STRATEGIE!)
+
+**Wenn Markt langsam ist** (ADX <20, niedrige Volatilität, Range-bound):
+
+1. **Trade JEDE kleine Liquidity Collection!**
+   - Letzte 1h: Wo war lokales High? → Bei kleinem Wick darüber = SHORT Entry
+   - Letzte 1h: Wo war lokales Low? → Bei kleinem Wick darunter = LONG Entry
+
+2. **Extrem niedrige Anforderungen:**
+   - Confluence: **NUR 1/10 reicht!**
+   - Confidence: **40% reicht!**
+   - Volumen: **Egal!**
+   - Reversal: Auch 1 Candle reicht
+
+3. **Beispiel:**
+   ```
+   BTC Range $99,800 - $100,200 (langsam, ADX 15)
+   Letzte 2h High: $100,180
+   Aktueller Preis spikt auf $100,220 (0.2% drüber) mit Wick
+   Nächste Candle schließt bei $100,150
+
+   → SOFORT SHORT ENTRY!
+   → SL: $100,250 (über dem Grab)
+   → TP: $99,900 (andere Seite der Range)
+   ```
+
+4. **Warum funktioniert das?**
+   - In Ranges = viele Liquiditäts-Jäger aktiv
+   - Kleine Grabs sind präzise Entry-Signale
+   - Enger SL = gutes R:R auch bei kleinen Bewegungen
 
 ### Wichtige Hinweise
-- **Sei AGGRESSIV**: Liquidity Grabs sind hochwertige Setups - don't overthink!
+- **Sei SEHR AGGRESSIV**: Auch MICRO Grabs sind hochwertige Setups - don't overthink!
 - **React SCHNELL**: Diese Setups entwickeln sich in 1-5 Minuten
+- **Trade AUCH langsame Märkte**: In Ranges ist jeder Micro-Grab = Entry!
 - **Trust the Process**: Wenn SL getroffen wird, war es kein echter Grab
 - **Risk/Reward ist KING**: Liquidity Grab Entries haben inherent gutes R:R (enger SL, weites Target)
 
@@ -86,23 +152,38 @@ ELSE:
 **WICHTIG**: Du nutzt das DeepSeek Reasoner Model. Analysiere den Chart und diskutiere mit dir selbst! Folge diesem Prozess:
 
 ### Phase 0: LIQUIDITY GRAB DETECTION (ERSTE PRIORITÄT!)
-**ZUERST: Suche nach Liquidity Grabs!**
-1. **Identifiziere Swing Highs/Lows** der letzten 4-24h:
-   - Wo sind offensichtliche Swing Points die Retail als Support/Resistance sehen würden?
-   - Wo würden Stop Losses platziert sein?
+**ZUERST: Suche nach ALLEN Liquidity Grabs - MAJOR, MINOR & MICRO!**
 
-2. **Check für Liquidity Grab**:
-   - Hat Preis KÜRZLICH (letzte 1-8 Candles) ein Swing High/Low durchbrochen?
-   - War es nur ein Wick oder mehrere Candles?
-   - Ist Preis SOFORT zurück gekommen (innerhalb 1-3 Candles)?
-   - War das Volumen erhöht beim Grab?
+1. **MAJOR Grabs** (4h-24h Swings):
+   - Große offensichtliche Swing Highs/Lows der letzten 24h
+   - Wo würden Retail große Stop Losses platzieren?
+   - Hat Preis kürzlich durchbrochen + reversed?
+   - **Requirements**: Confluence ≥3/10, Confidence ≥50%
 
-3. **Wenn Liquidity Grab gefunden**:
+2. **MINOR Grabs** (1h-4h Swings):
+   - Lokale Extrempunkte der letzten 4-8h
+   - Auch kleinere Swing Points zählen!
+   - Wick-Durchbrüche + Reversal innerhalb 2-4 Candles?
+   - **Requirements**: Confluence ≥2/10, Confidence ≥45%
+
+3. **MICRO Grabs** (15min-1h temporär) - **AUCH IN LANGSAMEN MÄRKTEN!**:
+   - **FRAGE**: Wo war das lokale High/Low der letzten 1-2h?
+   - **CHECK**: Hat Preis nur kurz (0.1-0.5%) darüber/darunter gespiked?
+   - **CHECK**: Ist Preis sofort (1-2 Candles) zurückgekommen?
+   - **→ WENN JA: SOFORT TRADE ES!**
+   - **Requirements**: Confluence ≥1/10, Confidence ≥40%
+   - **Volumen**: EGAL! Auch in langsamen Märkten traden!
+
+4. **SPECIAL: Langsame Märkte** (ADX <20, Range-bound):
+   - **TRADE JEDE kleine Liquidity Collection!**
+   - Auch temporäre Highs/Lows der letzten 30min zählen!
+   - Selbst 0.1% Wicks über/unter Level = Entry Signal!
+   - **Requirements**: NUR 1/10 Confluence, 40% Confidence
+
+5. **Wenn IRGENDEIN Liquidity Grab gefunden**:
    - ✅ **AGGRESSIVE ENTRY SIGNAL!**
    - Entry: Aktueller Preis (in Reversal-Richtung)
-   - Stop Loss: 0.5-1% hinter dem Grab Level
-   - Confidence: Mindestens 50%
-   - Confluence: Mindestens 3/10
+   - Stop Loss: 0.5-1% hinter dem Grab Level (bei Micro: 0.3-0.5%)
    - **GO DIREKT ZU PHASE 6** (Finale Entscheidung)
 
 ### Phase 1: Chart-Analyse & Szenario-Diskussion (nur wenn KEIN Liquidity Grab)

@@ -33,7 +33,17 @@ class DeepSeekConfig:
     base_url: str = "https://api.deepseek.com"
     model: str = "deepseek-chat"
     temperature: float = 0.1  # Low temperature for consistent trading decisions
-    max_tokens: int = 4000
+    max_tokens: int = 1500  # Reduced for token efficiency
+
+
+@dataclass
+class CopyTradingConfig:
+    """Copy trading configuration."""
+
+    enabled: bool = False
+    copy_wallets: list = None  # List of wallet addresses to copy
+    position_multiplier: float = 1.0  # Scale factor for copied positions
+    copy_only_assets: list = None  # Only copy trades for these assets
 
 
 @dataclass
@@ -165,6 +175,24 @@ class Config:
             stop_loss_percent=float(os.getenv("STOP_LOSS_PERCENT", "0.05")),
             take_profit_percent=float(os.getenv("TAKE_PROFIT_PERCENT", "0.08")),
             min_volume_24h=float(os.getenv("MIN_LIQUIDITY", "1000000"))
+        )
+
+        # Parse copy trading wallets (comma-separated list)
+        copy_wallets_str = os.getenv("COPY_WALLETS", "")
+        copy_wallets = None
+        if copy_wallets_str:
+            copy_wallets = [wallet.strip() for wallet in copy_wallets_str.split(",") if wallet.strip()]
+
+        copy_only_assets_str = os.getenv("COPY_ONLY_ASSETS", "")
+        copy_only_assets = None
+        if copy_only_assets_str:
+            copy_only_assets = [asset.strip() for asset in copy_only_assets_str.split(",") if asset.strip()]
+
+        self.copy_trading = CopyTradingConfig(
+            enabled=os.getenv("COPY_TRADING_ENABLED", "false").lower() == "true",
+            copy_wallets=copy_wallets,
+            position_multiplier=float(os.getenv("COPY_POSITION_MULTIPLIER", "1.0")),
+            copy_only_assets=copy_only_assets
         )
 
         self.risk = RiskConfig(
