@@ -39,7 +39,8 @@ class HyperliquidClient:
 
     def __init__(self, config: HyperliquidConfig):
         self.config = config
-        self.base_url = config.url
+        self.base_url = config.url  # For trading
+        self.data_url = config.data_url  # For market data
         self.session: Optional[aiohttp.ClientSession] = None
 
         # Setup wallet for signing
@@ -47,13 +48,20 @@ class HyperliquidClient:
         self.wallet_address = config.wallet_address
 
         # Initialize official Hyperliquid SDK
-        # Determine if testnet or mainnet
-        sdk_base_url = constants.TESTNET_API_URL if "testnet" in self.base_url.lower() else constants.MAINNET_API_URL
-        self.info = Info(sdk_base_url, skip_ws=True)
-        self.exchange = Exchange(self.account, sdk_base_url)
+        # Trading SDK uses testnet/mainnet based on config
+        sdk_trading_url = constants.TESTNET_API_URL if config.testnet else constants.MAINNET_API_URL
+        # Data SDK uses mainnet if use_mainnet_data is true
+        sdk_data_url = constants.MAINNET_API_URL if config.use_mainnet_data else sdk_trading_url
+
+        self.info = Info(sdk_data_url, skip_ws=True)  # Market data (for analysis)
+        self.info_trading = Info(sdk_trading_url, skip_ws=True)  # Market data (for order prices)
+        self.exchange = Exchange(self.account, sdk_trading_url)  # Trading
 
         logger.info(f"Initialized Hyperliquid client for wallet: {self.wallet_address}")
-        logger.info(f"Using SDK with base URL: {sdk_base_url}")
+        logger.info(f"Trading URL: {sdk_trading_url}")
+        logger.info(f"Market Data URL: {sdk_data_url}")
+        if config.use_mainnet_data and config.testnet:
+            logger.info("⚠️  Using MAINNET data for analysis, TESTNET for trading")
 
     async def __aenter__(self):
         """Async context manager entry."""
@@ -483,22 +491,22 @@ class HyperliquidClient:
         """
         # Get current market price if MARKET order
         if order_type == "MARKET":
-            # Use SDK to get current price
-            all_mids = await asyncio.to_thread(self.info.all_mids)
+            # Use trading SDK to get current price (NOT data SDK - need correct network price!)
+            all_mids = await asyncio.to_thread(self.info_trading.all_mids)
             current_price = float(all_mids[asset])
 
-            # Add slippage buffer for market orders (5% for safety)
+            # Add moderate slippage for market orders (2% to find liquidity)
             if side.upper() == "BUY":
-                price = round(current_price * 1.05)  # 5% above for buys
+                price = round(current_price * 1.02)  # 2% above for buys
             else:
-                price = round(current_price * 0.95)  # 5% below for sells
+                price = round(current_price * 0.98)  # 2% below for sells
         else:
             if price is None:
                 raise ValueError("Price is required for LIMIT orders")
             price = round(price)  # Round to integer for tick size
 
-        # Get metadata for proper size rounding
-        meta = await asyncio.to_thread(self.info.meta)
+        # Get metadata for proper size rounding (use trading info for correct network metadata)
+        meta = await asyncio.to_thread(self.info_trading.meta)
         asset_meta = None
         for universe_asset in meta["universe"]:
             if universe_asset["name"] == asset:
@@ -563,6 +571,93 @@ class HyperliquidClient:
 
         except Exception as e:
             logger.error(f"❌ Failed to place order: {e}")
+            raise
+
+    async def place_trigger_order(
+        self,
+        asset: str,
+        side: str,
+        size: float,
+        trigger_price: float,
+        trigger_type: str,  # "tp" or "sl"
+        is_market: bool = True
+    ) -> Dict[str, Any]:
+        """
+        Place a trigger order (Stop Loss or Take Profit) on Hyperliquid.
+
+        Args:
+            asset: Asset symbol (e.g., "BTC", "ETH")
+            side: "BUY" or "SELL" (direction when triggered)
+            size: Order size
+            trigger_price: Price at which the order triggers
+            trigger_type: "tp" (take profit) or "sl" (stop loss)
+            is_market: Execute as market order when triggered (default True)
+        """
+        # Get metadata for proper size rounding (use trading info for correct network metadata)
+        meta = await asyncio.to_thread(self.info_trading.meta)
+        asset_meta = None
+        for universe_asset in meta["universe"]:
+            if universe_asset["name"] == asset:
+                asset_meta = universe_asset
+                break
+
+        if asset_meta:
+            sz_decimals = asset_meta["szDecimals"]
+            size = round(size, sz_decimals)
+
+        # Round trigger price to integer
+        trigger_price = round(trigger_price)
+
+        logger.info(f"Placing {trigger_type.upper()} trigger order: {size} {asset} @ ${trigger_price:,.0f}")
+
+        # Build trigger order type
+        order_type = {
+            "trigger": {
+                "isMarket": is_market,
+                "triggerPx": str(trigger_price),
+                "tpsl": trigger_type
+            }
+        }
+
+        is_buy = side.upper() == "BUY"
+
+        try:
+            # Use official SDK to place trigger order
+            order_result = await asyncio.to_thread(
+                self.exchange.order,
+                name=asset,
+                is_buy=is_buy,
+                sz=size,
+                limit_px=trigger_price,
+                order_type=order_type,
+                reduce_only=True  # SL/TP should always reduce position
+            )
+
+            logger.debug(f"Trigger order response: {order_result}")
+
+            # Check response status
+            if order_result.get("status") == "ok":
+                data = order_result.get("response", {}).get("data", {})
+                statuses = data.get("statuses", [])
+
+                if statuses and "resting" in statuses[0]:
+                    oid = statuses[0]["resting"]["oid"]
+                    logger.success(f"✅ {trigger_type.upper()} order placed: Order ID {oid}")
+                    return {"order_id": oid, "status": "resting", "type": trigger_type}
+                elif statuses and "error" in statuses[0]:
+                    error_msg = statuses[0]["error"]
+                    logger.error(f"❌ Trigger order rejected: {error_msg}")
+                    raise Exception(f"Trigger order rejected: {error_msg}")
+                else:
+                    logger.warning(f"⚠️  Unexpected trigger order response: {statuses}")
+                    return {"status": "unknown", "response": order_result}
+            else:
+                error_msg = order_result.get("error", "Unknown error")
+                logger.error(f"❌ Trigger order failed: {error_msg}")
+                raise Exception(f"Trigger order failed: {error_msg}")
+
+        except Exception as e:
+            logger.error(f"❌ Failed to place trigger order: {e}")
             raise
 
     async def cancel_order(self, order_id: str, asset: str) -> Dict[str, Any]:

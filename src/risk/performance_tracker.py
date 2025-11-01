@@ -126,10 +126,10 @@ class PerformanceTracker:
         if self.daily_data["is_trading_stopped"]:
             return False, self.daily_data["stop_reason"]
 
-        # Check max trades per day (8)
-        if self.daily_data["trades_today"] >= 8:
-            self.stop_trading("Max trades per day reached (8)")
-            return False, "Max 8 trades per day"
+        # Check max trades per day - DISABLED
+        # if self.daily_data["trades_today"] >= 8:
+        #     self.stop_trading("Max trades per day reached (8)")
+        #     return False, "Max 8 trades per day"
 
         # Check if too many consecutive losses (4)
         if self.daily_data["consecutive_losses"] >= 4:

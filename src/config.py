@@ -16,12 +16,20 @@ class HyperliquidConfig:
     wallet_address: str
     private_key: str
     testnet: bool = True
+    use_mainnet_data: bool = False  # Use mainnet data for analysis, testnet for trading
     base_url: str = "https://api.hyperliquid.xyz"
     testnet_url: str = "https://api.hyperliquid-testnet.xyz"
 
     @property
     def url(self) -> str:
-        """Get the appropriate URL based on testnet flag."""
+        """Get the appropriate URL for trading based on testnet flag."""
+        return self.testnet_url if self.testnet else self.base_url
+
+    @property
+    def data_url(self) -> str:
+        """Get the appropriate URL for market data (can be mainnet even if trading on testnet)."""
+        if self.use_mainnet_data:
+            return self.base_url  # Always use mainnet for data
         return self.testnet_url if self.testnet else self.base_url
 
 
@@ -156,7 +164,8 @@ class Config:
         self.hyperliquid = HyperliquidConfig(
             wallet_address=os.getenv("HYPERLIQUID_WALLET_ADDRESS", ""),
             private_key=os.getenv("HYPERLIQUID_PRIVATE_KEY", ""),
-            testnet=os.getenv("HYPERLIQUID_TESTNET", "true").lower() == "true"
+            testnet=os.getenv("HYPERLIQUID_TESTNET", "true").lower() == "true",
+            use_mainnet_data=os.getenv("USE_MAINNET_DATA", "true").lower() == "true"
         )
 
         self.deepseek = DeepSeekConfig(

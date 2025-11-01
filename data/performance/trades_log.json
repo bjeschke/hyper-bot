@@ -1,1 +1,226 @@
-[]
+[
+  {
+    "timestamp": "2025-10-30T18:03:09.218459",
+    "date": "2025-10-30",
+    "asset": "BTC",
+    "side": "SELL",
+    "entry_price": 108745.5,
+    "size": 0.006327173322114478,
+    "stop_loss": 109832.955,
+    "take_profit": [
+      110920.41,
+      113095.32,
+      115270.23000000001
+    ],
+    "confidence": 85.0,
+    "confluence": 8,
+    "reason": "**Multi-Agent Consensus:** All four agents unanimously agree on a BEARISH stance with compelling evidence. The extremely strong ADX at 70.97 confirms a powerful trending market, MACD at -177.24 shows ",
+    "status": "OPEN"
+  },
+  {
+    "timestamp": "2025-10-30T18:05:18.961711",
+    "date": "2025-10-30",
+    "asset": "BTC",
+    "side": "SELL",
+    "entry_price": 108738.0,
+    "size": 0.006328635328955838,
+    "stop_loss": 109825.38,
+    "take_profit": [
+      110912.76,
+      113087.52,
+      115262.28
+    ],
+    "confidence": 85.0,
+    "confluence": 8,
+    "reason": "**Multi-Agent Consensus:** All four agents unanimously agree on a BEARISH stance with strong technical confirmation. The extremely high ADX (70.97) indicates powerful trending momentum, deeply negativ",
+    "status": "OPEN"
+  },
+  {
+    "timestamp": "2025-10-30T18:17:35.795011",
+    "date": "2025-10-30",
+    "asset": "BTC",
+    "side": "SELL",
+    "entry_price": 108759.0,
+    "size": 0.006348788781618072,
+    "stop_loss": 109846.59,
+    "take_profit": [
+      110934.18000000001,
+      113109.36,
+      115284.54000000001
+    ],
+    "confidence": 85.0,
+    "confluence": 8,
+    "reason": "**Multi-Agent Consensus:** All four agents unanimously agree on BEARISH stance with strong technical confirmation. The extremely high ADX (70.97) indicates a powerful trending market, negative MACD (-",
+    "status": "OPEN"
+  },
+  {
+    "timestamp": "2025-10-30T18:23:53.515900",
+    "date": "2025-10-30",
+    "asset": "BTC",
+    "side": "SELL",
+    "entry_price": 109024.5,
+    "size": 0.006278023854271287,
+    "stop_loss": 110114.745,
+    "take_profit": [
+      111204.99,
+      113385.48000000001,
+      115565.97
+    ],
+    "confidence": 95.0,
+    "confluence": 8,
+    "reason": "**Multi-Agent Consensus:** All four agents unanimously agree on a BEARISH stance with extremely strong conviction. The ADX at 70.97 indicates an exceptionally strong trending market, MACD at -155.86 c",
+    "status": "OPEN"
+  },
+  {
+    "timestamp": "2025-10-30T18:25:14.785302",
+    "date": "2025-10-30",
+    "asset": "BTC",
+    "side": "SELL",
+    "entry_price": 109239.0,
+    "size": 0.0062637526890579375,
+    "stop_loss": 110331.39,
+    "take_profit": [
+      111423.78,
+      113608.56,
+      115793.34000000001
+    ],
+    "confidence": 95.0,
+    "confluence": 8,
+    "reason": "**Multi-Agent Consensus:** All four agents unanimously agree on a BEARISH stance with high conviction. The extremely high ADX (70.97) indicates powerful institutional-level trending, negative MACD (-1",
+    "status": "OPEN"
+  },
+  {
+    "timestamp": "2025-10-30T18:28:25.937306",
+    "date": "2025-10-30",
+    "asset": "BTC",
+    "side": "SELL",
+    "entry_price": 109297.5,
+    "size": 0.006256469123264484,
+    "stop_loss": 110390.475,
+    "take_profit": [
+      111483.45,
+      113669.40000000001,
+      115855.35
+    ],
+    "confidence": 85.0,
+    "confluence": 8,
+    "reason": "**Multi-Agent Consensus:** All four trading desk experts unanimously identify BEARISH conditions with strong conviction. The extreme ADX reading of 70.97 indicates a powerful trending market, combined",
+    "status": "OPEN"
+  },
+  {
+    "timestamp": "2025-10-30T18:41:07.408960",
+    "date": "2025-10-30",
+    "asset": "BTC",
+    "side": "SELL",
+    "entry_price": 108648.5,
+    "size": 0.004725840770236129,
+    "stop_loss": 109734.985,
+    "take_profit": [
+      110821.47,
+      112994.44,
+      115167.41
+    ],
+    "confidence": 85.0,
+    "confluence": 8,
+    "reason": "**Multi-Agent Consensus:** All four agents unanimously agree on a BEARISH stance with high conviction. The combination of extremely strong trend momentum (ADX 70.97), sustained negative momentum (MACD",
+    "status": "OPEN"
+  },
+  {
+    "timestamp": "2025-10-30T18:41:58.017557",
+    "date": "2025-10-30",
+    "asset": "ETH",
+    "side": "SELL",
+    "entry_price": 3761.5,
+    "size": 0.13650286080685897,
+    "stop_loss": 3799.115,
+    "take_profit": [
+      3836.73,
+      3911.96,
+      3987.19
+    ],
+    "confidence": 82.0,
+    "confluence": 8,
+    "reason": "**Multi-Agent Consensus:** All four agents unanimously agree on BEARISH stance with strong technical confirmation. ADX at 35.78 confirms strong trending market, MACD at -16.87 shows significant negati",
+    "status": "OPEN"
+  },
+  {
+    "timestamp": "2025-10-30T19:13:43.693392",
+    "date": "2025-10-30",
+    "asset": "BTC",
+    "side": "SELL",
+    "entry_price": 108745.0,
+    "size": 0.004708060225297714,
+    "stop_loss": 109832.45,
+    "take_profit": [
+      110919.90000000001,
+      113094.8,
+      115269.70000000001
+    ],
+    "confidence": 85.0,
+    "confluence": 9,
+    "reason": "**Multi-Agent Consensus:** Clear bearish consensus with 4 out of 5 agents bearish. Strong technical evidence including extremely high ADX (71.08) confirming strong trending market, deeply negative MAC",
+    "status": "OPEN"
+  },
+  {
+    "timestamp": "2025-11-01T10:14:51.536919",
+    "date": "2025-11-01",
+    "asset": "BTC",
+    "side": "SELL",
+    "entry_price": 111070.0,
+    "size": 0.006057897768074186,
+    "stop_loss": 112180.7,
+    "take_profit": [
+      113291.40000000001,
+      115512.8,
+      117734.20000000001
+    ],
+    "confidence": 82.0,
+    "confluence": 9,
+    "reason": "**Multi-Agent Consensus:** Clear bearish consensus with 4 out of 5 agents bearish. Strong technical evidence from ADX (52.55) showing trending market and MACD (-65.53) confirming significant bearish m",
+    "status": "LOSS",
+    "exit_price": 112581.0,
+    "pnl": -9.153483527560095,
+    "pnl_pct": -1.3604033492392182,
+    "close_timestamp": "2025-11-01T10:52:44.296845"
+  },
+  {
+    "timestamp": "2025-11-01T11:07:44.489548",
+    "date": "2025-11-01",
+    "asset": "BTC",
+    "side": "BUY",
+    "entry_price": 112743.5,
+    "size": 0.0059231521888179805,
+    "stop_loss": 111616.065,
+    "take_profit": [
+      114998.37,
+      117253.24,
+      119508.11
+    ],
+    "confidence": 85.0,
+    "confluence": 9,
+    "reason": "**Multi-Agent Consensus:** Clear bullish consensus with 4 out of 5 agents bullish (Chart Analyst, Market Regime Expert, Fundamental Analyst, Risk Manager). The strong ADX at 50.59 confirms a reliable ",
+    "status": "OPEN"
+  },
+  {
+    "timestamp": "2025-11-01T12:34:17.752077",
+    "date": "2025-11-01",
+    "asset": "BTC",
+    "side": "SELL",
+    "entry_price": 111176.0,
+    "size": 0.00597182056828812,
+    "stop_loss": 112287.76,
+    "take_profit": [
+      113399.52,
+      115623.04000000001,
+      117846.56000000001
+    ],
+    "confidence": 78.0,
+    "confluence": 9,
+    "reason": "**Multi-Agent Consensus:** Clear bearish consensus with 4 out of 5 agents bearish. Strong technical momentum with MACD at -81.64 and ADX at 49.8 confirming a strong downtrend. RSI at 45.28 shows room ",
+    "status": "LOSS",
+    "exit_price": 112577.5,
+    "pnl": -8.3695065264558,
+    "pnl_pct": -1.2606138015399007,
+    "close_timestamp": "2025-11-01T14:51:47.756462"
+  }
+]

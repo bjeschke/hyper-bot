@@ -146,18 +146,22 @@ class RiskManager:
         if decision.decision == Decision.HOLD:
             return False, "Decision is HOLD"
 
-        # Per-asset cooldown (entries only)
+        # Per-asset cooldown (entries only, but allow adding to existing position)
         if decision.decision in [Decision.BUY, Decision.SELL]:
-            last_ts = self._last_trade_ts.get(asset)
-            if last_ts:
-                elapsed = datetime.utcnow() - last_ts
-                if elapsed < timedelta(minutes=self.trading_config.trade_cooldown_minutes):
-                    wait_min = int((timedelta(minutes=self.trading_config.trade_cooldown_minutes) - elapsed).total_seconds() // 60) + 1
-                    return False, f"Cooldown active for {asset}: wait ~{wait_min} min"
+            # Check if we already have a position - if yes, allow adding to it (bypass cooldown)
+            has_position = any(pos.symbol == asset for pos in portfolio.positions)
 
-        # Check daily trade limit
-        if self.daily_trades >= self.risk_config.max_daily_trades:
-            return False, f"Daily trade limit reached ({self.risk_config.max_daily_trades})"
+            if not has_position:  # Only apply cooldown for NEW positions
+                last_ts = self._last_trade_ts.get(asset)
+                if last_ts:
+                    elapsed = datetime.utcnow() - last_ts
+                    if elapsed < timedelta(minutes=self.trading_config.trade_cooldown_minutes):
+                        wait_min = int((timedelta(minutes=self.trading_config.trade_cooldown_minutes) - elapsed).total_seconds() // 60) + 1
+                        return False, f"Cooldown active for {asset}: wait ~{wait_min} min"
+
+        # Check daily trade limit - DISABLED
+        # if self.daily_trades >= self.risk_config.max_daily_trades:
+        #     return False, f"Daily trade limit reached ({self.risk_config.max_daily_trades})"
 
         # Check daily loss limit
         daily_loss_limit = portfolio.total_value * self.trading_config.daily_loss_limit

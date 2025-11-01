@@ -46,7 +46,7 @@ class TradingBot:
             from src.agents.orchestrator import TradingDeskOrchestrator
             self.trading_desk = TradingDeskOrchestrator(config.deepseek.api_key)
             self.ai_engine = None
-            logger.info("🏢 Using Multi-Agent Trading Desk (5 agents)")
+            logger.info("🏢 Using Multi-Agent Trading Desk (6 agents)")
         else:
             self.ai_engine = DeepSeekEngine(config.deepseek)
             self.trading_desk = None
@@ -121,7 +121,40 @@ class TradingBot:
             if portfolio.positions:
                 logger.info(f"Existing Positions: {len(portfolio.positions)}")
                 for pos in portfolio.positions:
-                    logger.info(f"  - {pos.side} {pos.size} {pos.asset} @ ${pos.entry_price} (P&L: ${pos.unrealized_pnl:,.2f})")
+                    logger.info(f"  - {pos.side} {pos.size} {pos.symbol} @ ${pos.entry_price} (P&L: ${pos.unrealized_pnl:,.2f})")
+
+                    # Load existing positions into position_manager for SL/TP monitoring
+                    # Create fake decision/suggested_action for existing positions
+                    # (SL/TP will be set to reasonable defaults)
+                    from src.utils.models import TradingDecision, SuggestedAction, StopLoss, TakeProfitTarget, Decision
+
+                    stop_loss = StopLoss(
+                        price=pos.entry_price * 1.05 if pos.side == "SHORT" else pos.entry_price * 0.95,
+                        distance_pct=5.0
+                    )
+
+                    suggested_action = SuggestedAction(
+                        side="SELL" if pos.side == "SHORT" else "BUY",
+                        type="MARKET",
+                        entry_price=pos.entry_price,
+                        quantity=pos.size,
+                        stop_loss=stop_loss,
+                        take_profit_targets=[
+                            TakeProfitTarget(target=1, price=pos.entry_price * 0.97 if pos.side == "SHORT" else pos.entry_price * 1.03, percentage_to_close=50, reasoning="Default TP1", rr_ratio=1.5),
+                            TakeProfitTarget(target=2, price=pos.entry_price * 0.95 if pos.side == "SHORT" else pos.entry_price * 1.05, percentage_to_close=30, reasoning="Default TP2", rr_ratio=2.0),
+                            TakeProfitTarget(target=3, price=pos.entry_price * 0.93 if pos.side == "SHORT" else pos.entry_price * 1.07, percentage_to_close=20, reasoning="Default TP3", rr_ratio=2.5),
+                        ]
+                    )
+
+                    fake_decision = TradingDecision(
+                        decision=Decision.HOLD,
+                        confidence=0.8,
+                        setup_quality="A",
+                        reasoning="Existing position loaded on bot startup"
+                    )
+
+                    self.position_manager.add_position(pos, fake_decision, suggested_action)
+                    logger.info(f"  ✅ Loaded {pos.symbol} into position_manager for monitoring")
 
             logger.info(f"Trading loop interval: {self.trading_interval}s")
             logger.info("Bot is running. Press Ctrl+C to stop.")
@@ -192,6 +225,18 @@ class TradingBot:
         try:
             logger.info(f"\n>>> Analyzing {asset} <<<")
 
+            # 0. Check if we already have an open position for this asset
+            existing_position = None
+            for pos in portfolio.positions:
+                if pos.symbol == asset:
+                    existing_position = pos
+                    break
+
+            if existing_position:
+                logger.info(f"{asset}: Existing {existing_position.side} position @ ${existing_position.entry_price:.2f} (Size: {existing_position.size:.4f})")
+                logger.info(f"{asset}: Unrealized P&L: ${existing_position.unrealized_pnl:.2f} ({existing_position.unrealized_pnl_percent:+.2f}%)")
+                # Continue with analysis - AI can decide to add, reduce, or close position
+
             # 1. Fetch market data
             logger.info(f"Fetching market data for {asset}...")
             market_data = await self.hl_client.get_multi_timeframe_data(asset)
@@ -244,7 +289,8 @@ class TradingBot:
                     'full_indicators': indicators,
                     'orderbook': orderbook,
                     'derivatives': derivatives,
-                    'portfolio': portfolio
+                    'portfolio': portfolio,
+                    'existing_position': existing_position  # Info about open position for AI
                 }
                 decision = await self.trading_desk.run_trading_discussion(context)
             else:
@@ -314,13 +360,46 @@ class TradingBot:
             logger.exception(f"Error in trading loop: {e}")
 
     async def execute_entry(self, asset: str, decision, portfolio, indicators: TechnicalIndicators):
-        """Execute entry order."""
+        """Execute entry order or add to existing position."""
         try:
             if not decision.suggested_action:
                 logger.warning(f"{asset}: No suggested action in decision")
                 return
 
             suggested_action = decision.suggested_action
+
+            # CRITICAL: Validate that Stop Loss and Take Profit are ALWAYS set
+            if not suggested_action.stop_loss or not suggested_action.stop_loss.price:
+                logger.error(f"{asset}: ❌ REJECTED - No Stop Loss defined! Every trade MUST have a Stop Loss.")
+                return
+
+            if not suggested_action.take_profit_targets or len(suggested_action.take_profit_targets) == 0:
+                logger.error(f"{asset}: ❌ REJECTED - No Take Profit defined! Every trade MUST have Take Profit targets.")
+                return
+
+            logger.info(f"{asset}: ✅ Risk Management validated: SL @ ${suggested_action.stop_loss.price:.2f}, {len(suggested_action.take_profit_targets)} TP levels")
+
+            # Check for existing position
+            existing_position = None
+            for pos in portfolio.positions:
+                if pos.symbol == asset:
+                    existing_position = pos
+                    break
+
+            # Handle existing position logic
+            if existing_position:
+                position_side = existing_position.side  # "LONG" or "SHORT"
+                new_side = "LONG" if suggested_action.side.value == "BUY" else "SHORT"
+
+                if position_side == new_side:
+                    # Same direction → Add to position (pyramid up)
+                    logger.info(f"{asset}: Adding to existing {position_side} position (pyramid up)")
+                else:
+                    # Opposite direction → Close current position first
+                    logger.info(f"{asset}: Closing {position_side} position before opening {new_side}")
+                    await self.hl_client.close_position(asset)
+                    self.position_manager.remove_position(asset)
+                    # Continue to open new position in opposite direction
 
             # Calculate position size
             volatility = indicators.atr_percent if indicators and indicators.atr_percent else 2.0
@@ -358,22 +437,56 @@ class TradingBot:
             logger.info(f"{asset}: Using {leverage}x leverage")
 
             # Place order
-            logger.info(f"{asset}: Placing {suggested_action.type.value} {suggested_action.side.value} order:")
-            logger.info(f"  Entry: ${suggested_action.entry_price:.2f}")
+            logger.info(f"{asset}: Placing MARKET {suggested_action.side.value} order:")
+            logger.info(f"  AI Suggested Entry: ${suggested_action.entry_price:.2f} (reference only)")
             logger.info(f"  Quantity: {quantity:.4f} {asset}")
             logger.info(f"  Stop Loss: ${suggested_action.stop_loss.price:.2f} ({suggested_action.stop_loss.distance_pct:.2f}%)")
             logger.info(f"  TP Targets: {len(suggested_action.take_profit_targets)}")
 
-            # Execute order
+            # Execute order (Always MARKET for AI trading - avoids oracle price rejection)
             order_result = await self.hl_client.place_order(
                 asset=asset,
                 side=suggested_action.side.value,
                 size=quantity,
-                order_type=suggested_action.type.value,
-                price=suggested_action.entry_price if suggested_action.type.value == "LIMIT" else None
+                order_type="MARKET",  # Always MARKET to avoid "price too far from oracle" error
+                price=None  # MARKET orders don't need a price
             )
 
             logger.success(f"{asset}: Order placed successfully: {order_result}")
+
+            # Place Stop Loss order on exchange
+            try:
+                sl_side = "BUY" if suggested_action.side.value == "SELL" else "SELL"  # Opposite of entry
+                sl_result = await self.hl_client.place_trigger_order(
+                    asset=asset,
+                    side=sl_side,
+                    size=quantity,
+                    trigger_price=suggested_action.stop_loss.price,
+                    trigger_type="sl",
+                    is_market=True
+                )
+                logger.success(f"{asset}: Stop Loss order placed on exchange @ ${suggested_action.stop_loss.price:.2f}")
+            except Exception as e:
+                logger.error(f"{asset}: Failed to place Stop Loss order: {e}")
+
+            # Place Take Profit orders on exchange
+            for tp_target in suggested_action.take_profit_targets:
+                try:
+                    tp_side = "BUY" if suggested_action.side.value == "SELL" else "SELL"  # Opposite of entry
+                    # Calculate size for this TP level
+                    tp_size = quantity * (tp_target.percentage_to_close / 100.0)
+
+                    tp_result = await self.hl_client.place_trigger_order(
+                        asset=asset,
+                        side=tp_side,
+                        size=tp_size,
+                        trigger_price=tp_target.price,
+                        trigger_type="tp",
+                        is_market=True
+                    )
+                    logger.success(f"{asset}: TP{tp_target.target} order placed on exchange @ ${tp_target.price:.2f} ({tp_target.percentage_to_close}%)")
+                except Exception as e:
+                    logger.error(f"{asset}: Failed to place TP{tp_target.target} order: {e}")
 
             # Mark cooldown for this asset
             self.risk_manager.mark_asset_trade(asset)

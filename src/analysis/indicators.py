@@ -423,7 +423,7 @@ class TechnicalAnalysis:
             TechnicalIndicators object with all calculated indicators
         """
         if not candles or len(candles) < 50:
-            logger.warning(f"Not enough candle data for {timeframe}: {len(candles)}")
+            logger.debug(f"Not enough candle data for {timeframe}: {len(candles)}")
             return TechnicalIndicators()
 
         # Extract OHLCV data

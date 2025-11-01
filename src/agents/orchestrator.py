@@ -9,6 +9,7 @@ from src.agents.chart_analyst import ChartAnalystAgent
 from src.agents.liquidity_hunter import LiquidityHunterAgent
 from src.agents.risk_manager import RiskManagerAgent
 from src.agents.regime_expert import RegimeExpertAgent
+from src.agents.fundamental_analyst import FundamentalAnalystAgent
 from src.agents.supervisor import TradeSupervisorAgent
 from src.utils.models import TradingDecision, Decision, SetupQuality
 
@@ -17,12 +18,13 @@ class TradingDeskOrchestrator:
     """
     Orchestrates multi-agent trading discussion.
 
-    Coordinates 5 specialized agents:
+    Coordinates 6 specialized agents:
     1. Chart Analyst - Technical indicators
     2. Liquidity Hunter - Liquidity grabs
-    3. Risk Manager - Risk assessment
-    4. Market Regime Expert - Market conditions
-    5. Trade Supervisor - Final decision
+    3. Market Regime Expert - Market conditions
+    4. Fundamental Analyst - Macro & fundamental factors
+    5. Risk Manager - Risk assessment
+    6. Trade Supervisor - Final decision
     """
 
     def __init__(self, api_key: str):
@@ -32,11 +34,12 @@ class TradingDeskOrchestrator:
         # Initialize agents
         self.chart_analyst = ChartAnalystAgent(api_key)
         self.liquidity_hunter = LiquidityHunterAgent(api_key)
-        self.risk_manager = RiskManagerAgent(api_key)
         self.regime_expert = RegimeExpertAgent(api_key)
+        self.fundamental_analyst = FundamentalAnalystAgent(api_key)
+        self.risk_manager = RiskManagerAgent(api_key)
         self.supervisor = TradeSupervisorAgent(api_key)
 
-        logger.info("✅ Trading Desk ready: 5 agents initialized")
+        logger.info("✅ Trading Desk ready: 6 agents initialized")
 
     async def run_trading_discussion(self, context: Dict[str, Any]) -> TradingDecision:
         """
@@ -55,30 +58,38 @@ class TradingDeskOrchestrator:
 
         discussion_history: List[AgentOpinion] = []
 
-        # Phase 1: Initial Analysis (parallel)
+        # Phase 1: Initial Analysis (PARALLEL - runs 4x faster!)
         logger.info("📊 Phase 1: Initial Market Analysis")
         logger.info("-" * 80)
+        logger.info("⚡ Running 4 agents in PARALLEL...")
 
-        # Chart Analyst speaks first
-        logger.info(f"🔍 {self.chart_analyst.name} analyzing...")
-        chart_opinion = await self.chart_analyst.analyze(context, discussion_history)
+        # Run all 4 analysts in parallel for maximum speed
+        chart_task = self.chart_analyst.analyze(context, discussion_history)
+        liq_task = self.liquidity_hunter.analyze(context, discussion_history)
+        regime_task = self.regime_expert.analyze(context, discussion_history)
+        fundamental_task = self.fundamental_analyst.analyze(context, discussion_history)
+
+        # Wait for all to complete
+        chart_opinion, liq_opinion, regime_opinion, fundamental_opinion = await asyncio.gather(
+            chart_task, liq_task, regime_task, fundamental_task
+        )
+
+        # Add to discussion history and log results
+        logger.info(f"\n🔍 {self.chart_analyst.name}:")
         discussion_history.append(chart_opinion)
         self._log_opinion(chart_opinion)
-        await asyncio.sleep(2)  # Rate limit protection
 
-        # Liquidity Hunter
-        logger.info(f"\n🎯 {self.liquidity_hunter.name} analyzing...")
-        liq_opinion = await self.liquidity_hunter.analyze(context, discussion_history)
+        logger.info(f"\n🎯 {self.liquidity_hunter.name}:")
         discussion_history.append(liq_opinion)
         self._log_opinion(liq_opinion)
-        await asyncio.sleep(2)  # Rate limit protection
 
-        # Market Regime Expert
-        logger.info(f"\n🌊 {self.regime_expert.name} analyzing...")
-        regime_opinion = await self.regime_expert.analyze(context, discussion_history)
+        logger.info(f"\n🌊 {self.regime_expert.name}:")
         discussion_history.append(regime_opinion)
         self._log_opinion(regime_opinion)
-        await asyncio.sleep(2)  # Rate limit protection
+
+        logger.info(f"\n📰 {self.fundamental_analyst.name}:")
+        discussion_history.append(fundamental_opinion)
+        self._log_opinion(fundamental_opinion)
 
         # Phase 2: Risk Assessment
         logger.info(f"\n{'='*80}")
@@ -158,6 +169,22 @@ class TradingDeskOrchestrator:
         bullish_count = sum(1 for op in discussion if op.stance == "BULLISH")
         bearish_count = sum(1 for op in discussion if op.stance == "BEARISH")
 
+        # PROGRAMMATIC OVERRIDE: If all 5 agents unanimously agree, force the decision
+        # (Don't rely solely on Supervisor AI following instructions)
+        if bearish_count == 5 and final_decision == Decision.HOLD:
+            logger.warning("⚠️  OVERRIDE: All 5 agents BEARISH but Supervisor said HOLD → Forcing SELL")
+            final_decision = Decision.SELL
+        elif bullish_count == 5 and final_decision == Decision.HOLD:
+            logger.warning("⚠️  OVERRIDE: All 5 agents BULLISH but Supervisor said HOLD → Forcing BUY")
+            final_decision = Decision.BUY
+        # Strong majority (4 out of 5)
+        elif bearish_count >= 4 and final_decision == Decision.HOLD:
+            logger.warning("⚠️  OVERRIDE: Strong majority (4/5) BEARISH but Supervisor said HOLD → Forcing SELL")
+            final_decision = Decision.SELL
+        elif bullish_count >= 4 and final_decision == Decision.HOLD:
+            logger.warning("⚠️  OVERRIDE: Strong majority (4/5) BULLISH but Supervisor said HOLD → Forcing BUY")
+            final_decision = Decision.BUY
+
         # Build consensus summary
         key_factors = {
             "bullish": [],
@@ -172,10 +199,12 @@ class TradingDeskOrchestrator:
                 key_factors["bearish"].extend(opinion.key_points[:1])
 
         # Calculate confluence score based on agent agreement
-        if bullish_count >= 3 or bearish_count >= 3:
-            confluence_score = 8  # Strong agreement
+        if bullish_count >= 4 or bearish_count >= 4:
+            confluence_score = 9  # Very strong agreement (4-5 agents)
+        elif bullish_count >= 3 or bearish_count >= 3:
+            confluence_score = 7  # Strong agreement (3 agents)
         elif bullish_count >= 2 or bearish_count >= 2:
-            confluence_score = 6  # Moderate agreement
+            confluence_score = 5  # Moderate agreement (2 agents)
         else:
             confluence_score = 3  # Mixed signals
 
